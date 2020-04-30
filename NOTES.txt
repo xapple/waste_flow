@@ -1,0 +1,68 @@
+Find the bulk download
+
+Go here https://ec.europa.eu/eurostat/data/database
+
+Follow Database by themes -> Environment -> Waste -> Waste treatment
+
+1. Generation of waste by waste category, hazardousness and NACE Rev. 2 activity (env_wasgen)
+
+2. Treatment of waste by waste category, hazardousness and waste management operations (env_wastrt)
+
+--------------------
+
+4 dimension table
+
+Time
+Country
+NACE activity
+Waste category
+
+--------------------
+
+The C and C-10 and subgroups, don't sum twice.
+
+------------------
+
+The word household appears in both categories, be careful.
+
+------------
+
+Coefficients for the part of paper in household comes from different studies. Ref missing.
+Each product has a coefficient except things like animal feces.
+
+-----------------
+
+Then there are extra coefficients that affect rubber (e.g. 40%) to separate in the bio part and non-bio. Ref missing.
+
+-------------------
+
+Multiply for the dry content. These coefficients also come from studies. Ref missing.
+
+-----------------------
+
+We also need the destinations from eurostat to perform a matrix multiplication with them.
+
+-----------------------
+
+You can get the label correspondence in the GUI by pressing the "+" buttons here:
+
+https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=env_wasgen&lang=en
+
+-----------------------
+
+Send mail to Valeria about the "0 e" values.
+
+The second "household" should be called "municipal waste" to avoid confusion
+
+-----------------------
+
+Questions first batch:
+
+* Hazardous filter ok?
+* Measurement units filter ok?
+* Colons and characters meaning and removal?
+* Collapsing household into other columns?
+* Splitting into two categories: industrial and household?
+* Household gets combination of categories? New categories too such as food waste and green waste?
+* Difference between treated and untreated wood?
+* Rubber and textiles natural?
