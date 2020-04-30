@@ -24,6 +24,18 @@ To look at the raw contents as dataframes:
     >>> from waste_flow.zip_files import waste_gen, waste_trt
     >>> print(waste_gen.raw_csv)
     >>> print(waste_trt.raw_csv)
+
+To look at the processed contents as dataframes:
+
+    >>> from waste_flow.zip_files import waste_gen, waste_trt
+    >>> print(waste_gen.processed_csv)
+    >>> print(waste_trt.processed_csv)
+
+To look at the filtered contents as dataframes:
+
+    >>> from waste_flow.zip_files import waste_gen, waste_trt
+    >>> print(waste_gen.df)
+    >>> print(waste_trt.df)
 """
 
 # Built-in modules #
@@ -43,7 +55,7 @@ import pandas, numpy
 ###############################################################################
 class ZipFile:
     """
-    Download the zipped CSV file containing all countries and all categories
+    Download a zipped CSV file containing all countries and all categories
     from the EUROSTAT webserver.
 
     The original strategy to convert colons to NaN was the following:
@@ -88,26 +100,34 @@ class ZipFile:
         # Load the CSV #
         with gzip.open(self.zip_path) as csv_handle:
             text_mode = io.TextIOWrapper(csv_handle, encoding=self.encoding)
-            return pandas.read_csv(text_mode,
-                                   sep       = ',|\t',
-                                   engine    = 'python')
+            return pandas.read_csv(text_mode, sep = ',|\t', engine = 'python')
 
     @property_pickled_at('csv_cache_path')
     def processed_csv(self):
-        """Format and filter the data frame and store it in cache."""
+        """Format the data frame and store it in cache."""
         # Load #
         df = self.raw_csv
-        # Strange name due to wrong column parsing #
-        df = df.rename(columns={'geo\time': 'country'})
-        # Many column names have trailing whitespace #
+        # Strange name due to wrong column parsing and tabs #
+        df = df.rename(columns={'geo\\time': 'country'})
+        # Also many column names have trailing whitespace #
         df.columns = df.columns.str.strip().str.replace(' ','_')
         # Some cells have a number and a character or just a character #
-        cols_numeric = [2016, 2014, 2012, 2010, 2008, 2006, 2004]
-        for col in map(str, cols_numeric):
-            df[col] = df[col].apply(pandas.to_numeric,
-                                    errors   = 'coerce')
+        for col in map(str, (2016, 2014, 2012, 2010, 2008, 2006, 2004)):
+            df[col] = df[col].apply(pandas.to_numeric, errors = 'coerce')
         # Return #
-        return df.copy()
+        return df
+
+    @property_cached
+    def df(self):
+        """Filter the dataframe."""
+        # Load #
+        df = self.processed_csv
+        # Filter for those that we want - UNIT #
+        df = df.query("unit == 'T'")
+        # Filter for those that we want - HAZARD #
+        df = df.query("hazard == 'HAZ_NHAZ'")
+        # Return #
+        return df
 
     #--------------------------------- Cache ---------------------------------#
     @property
@@ -126,17 +146,6 @@ class WasteGen(ZipFile):
     encoding   = "ISO-8859-1"
     md5        = "df2ab56bb48bb2bf0e3266d08fa4d408"
 
-    @property_cached
-    def df(self):
-        """Format and filter the data frame and store it in cache."""
-        # Load #
-        df = self.processed_csv
-        # Filter for those that we want #
-        df = df.query("unit == 'T'")
-        df = df.query("hazard == 'HAZ_NHAZ'")
-        # Return #
-        return df
-
 #-----------------------------------------------------------------------------#
 class WasteTrt(ZipFile):
 
@@ -148,18 +157,7 @@ class WasteTrt(ZipFile):
     encoding   = "ISO-8859-1"
     md5        = "bfbfc036921b22698e52eab168f3f891"
 
-    @property_cached
-    def df(self):
-        """Format and filter the data frame and store it in cache."""
-        # Load #
-        df = self.processed_csv
-        # Filter for those that we want #
-        df = df.query("unit == 'T'")
-        df = df.query("hazard == 'HAZ_NHAZ'")
-        # Return #
-        return df
-
 ###############################################################################
 # Create singletons #
-waste_gen = WasteGen(cache_dir + 'eurostat_zips/')
-waste_trt = WasteTrt(cache_dir + 'eurostat_zips/')
+waste_gen = WasteGen(cache_dir + 'eurostat/')
+waste_trt = WasteTrt(cache_dir + 'eurostat/')

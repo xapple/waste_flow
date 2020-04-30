@@ -17,8 +17,16 @@ Unit D1 Bioeconomy.
 # Third party modules #
 
 ###############################################################################
+# Wastes #
+wastes_selected = ['W072', 'W073', 'W075', 'W076', 'W091', 'W092', 'W093', 'W101']
 
-industrial_waste = ['A', 'B', 'C', 'D', 'E36_E37_E39',
-                    'E38', 'F', 'G-U_X_G4677', 'G4677']
+municipal = 'W101'
 
-household_waste  = ['EP_HH']
+# Sectors #
+industrial = ['A', 'B', 'C', 'D',
+              'E36_E37_E39', 'E38',
+              'F', 'G-U_X_G4677', 'G4677']
+
+household  = ['EP_HH']
+
+nace_selected = industrial + household
