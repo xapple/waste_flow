@@ -45,7 +45,7 @@ import gzip, io
 from waste_flow import cache_dir
 
 # First party modules #
-from plumbing.cache    import property_cached, property_pickled_at
+from plumbing.cache    import property_pickled_at
 from plumbing.scraping import download_from_url
 from autopaths         import Path
 
@@ -73,7 +73,7 @@ class ZipFile:
 
     def refresh_cache(self):
         """Will download the required zip files to the cache directory."""
-        return download_from_url(self.url,
+        return download_from_url(self.base_url + self.url_param,
                                  self.zip_path,
                                  stream     = False,
                                  progress   = False,
@@ -117,15 +117,21 @@ class ZipFile:
         # Return #
         return df
 
-    @property_cached
+    @property
     def df(self):
         """Filter the dataframe."""
         # Load #
         df = self.processed_csv
         # Filter for those that we want - UNIT #
         df = df.query("unit == 'T'")
+        df = df.drop(columns=['unit'])
         # Filter for those that we want - HAZARD #
         df = df.query("hazard == 'HAZ_NHAZ'")
+        df = df.drop(columns=['hazard'])
+        # Albania, Kosovo and Turkey are missing entries, drop them #
+        df = df.query("country != 'AL'")
+        df = df.query("country != 'XK'")
+        df = df.query("country != 'TR'")
         # Return #
         return df
 
@@ -140,7 +146,8 @@ class WasteGen(ZipFile):
 
     short_name = "env_wasgen"
     long_name  = "Generation of waste by waste category, hazardousness and NACE Rev. 2 activity"
-    url        = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/env_wasgen.tsv.gz"
+    base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
+    url_param  = "?file=data/env_wastrt.tsv.gz"
     zip_name   = "env_wasgen.tsv.gz"
     csv_name   = "env_wasgen.tsv"
     encoding   = "ISO-8859-1"
@@ -151,7 +158,8 @@ class WasteTrt(ZipFile):
 
     short_name = "env_wastrt"
     long_name  = "Treatment of waste by waste category, hazardousness and waste management operations"
-    url        = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/env_wastrt.tsv.gz"
+    base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
+    url_param  = "?file=data/env_wastrt.tsv.gz"
     zip_name   = "env_wastrt.tsv.gz"
     csv_name   = "env_wastrt.tsv"
     encoding   = "ISO-8859-1"

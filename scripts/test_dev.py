@@ -40,6 +40,9 @@ Typically you would run this file from a command line like this:
 #print(waste_trt.df)
 
 ###############################################################################
-from waste_flow.generation import waste_gen
+#from waste_flow.generation import waste_gen
+#print(waste_gen.dry_mass)
 
-print(waste_gen.df)
+###############################################################################
+from waste_flow.outputs import outputs
+print(outputs.make_excel())

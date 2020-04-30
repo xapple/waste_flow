@@ -90,6 +90,7 @@ print(gen ^ trt)
 
 ```python
 from pandas_profiling import ProfileReport
+from waste_flow.zip_files import waste_gen, waste_trt
 waste_gen_profile = ProfileReport(waste_gen.df, html={'style': {'full_width': True}})
 waste_trt_profile = ProfileReport(waste_trt.df, html={'style': {'full_width': True}})
 ```
@@ -105,11 +106,13 @@ waste_trt_profile.to_widgets()
 # Filter
 
 ```python
+from waste_flow.zip_files import waste_gen, waste_trt
 with pandas.option_context('display.min_rows', 50, 'display.max_rows', 50):
     display(waste_gen.df)
 ```
 
 ```python
+from waste_flow.zip_files import waste_gen, waste_trt
 with pandas.option_context('display.min_rows', 50, 'display.max_rows', 50):
     display(waste_gen.df)
 ```

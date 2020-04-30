@@ -10,6 +10,7 @@ Unit D1 Bioeconomy.
 Typically you can use this class this like:
 
     >>> from waste_flow.treatment import waste_trt
+    >>> print(waste_trt.df)
 """
 
 # Built-in modules #
