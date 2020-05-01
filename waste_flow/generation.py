@@ -21,6 +21,7 @@ from waste_flow.zip_files import waste_gen as orig_gen
 
 # First party modules #
 from plumbing.cache import property_pickled_at
+from plumbing.cache import property_cached
 
 # Third party modules #
 import pandas
@@ -115,7 +116,7 @@ class WasteGeneration:
         # Return #
         return df
 
-    @property
+    @property_cached
     def dry_mass(self):
         """
         Convert all the 'tonnes' values to their dry weight equivalent

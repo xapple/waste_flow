@@ -128,8 +128,45 @@ with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
     display(result)
 ```
 
-```python
+# Test
 
+```python
+# Import #
+import pandas
+from waste_flow.generation import waste_gen
+
+# Load #
+df = waste_gen.dry_mass
+
+# Select rows for country #
+df = df.loc[['AT']]
+
+# Remove #
+df = df.droplevel(0)
+
+# Swap #
+#df = df.swaplevel(0, 1)
+
+# Swap #
+#df = df.reorder_levels([1, 0])
+
+# Swap #
+df = df.reset_index()
+df = df.sort_values(['nace_r2', 'year'])
+df = df.set_index(['nace_r2', 'year'])
+
+# Get all sectors #
+sectors = df.index.levels[0]
+print(sectors)
+
+# One graph per sector #
+result = [df.loc[[sec]] for sec in sectors]
+
+# Show #
+with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
+    display(result[0])
+    display(result[1])
+    display(result[2])
 ```
 
 ```python

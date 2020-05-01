@@ -48,6 +48,10 @@ Typically you would run this file from a command line like this:
 #print(outputs.make_dry_mass('~/test/dry_mass.xlsx'))
 
 ###############################################################################
-from waste_flow.reports.comparison import ComparisonReport
-report = ComparisonReport('~/test/report.pdf')
-print(report())
+from waste_flow.viz.gen import countries as all_gen_viz
+for gen_viz in all_gen_viz.values(): print(gen_viz.plot(rerun=True))
+
+###############################################################################
+#from waste_flow.reports.comparison import ComparisonReport
+#report = ComparisonReport('~/test/report.pdf')
+#print(report())

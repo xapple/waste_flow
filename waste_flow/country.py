@@ -11,8 +11,10 @@ Unit D1 Bioeconomy.
 # Built-in modules #
 
 # Internal modules #
+from waste_flow.zip_files import waste_gen as gen_orig
 
 # First party modules #
+from plumbing.cache import property_cached
 
 # Third party modules #
 
@@ -27,27 +29,26 @@ class Country:
     def __repr__(self):
         return '%s object code "%s"' % (self.__class__, self.code)
 
-    @property
-    def gen(self):
+    @property_cached
+    def dry_mass(self):
         """
         Return rows that concern this country only for the
-        waste generation table.
+        waste generation dry mass table.
         """
+        # Import #
+        from waste_flow.generation import waste_gen
         # Load #
-        df = zip_file.df
-        # Select rows for country #
-        selector = df['country'] == self.code
-        df       = df[selector]
+        df = waste_gen.dry_mass
+        # Select rows for current country #
+        df = df.loc[[self.code]].copy()
         # We don't need the country column anymore #
-        df = df.drop(columns=['country'])
-        # We don't need the old index anymore #
-        df = df.reset_index(drop=True)
+        df = df.droplevel(0)
         # Return #
         return df
 
 ###############################################################################
 # Get all possible countries #
-all_codes = 0
+all_codes = list(gen_orig.df.country.unique())
 
 # Create every country object #
 all_countries = [Country(code) for code in all_codes]

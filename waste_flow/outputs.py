@@ -79,7 +79,6 @@ class Outputs:
         # Return #
         return all_dfs
 
-
 ###############################################################################
 # Create singleton #
 outputs = Outputs()

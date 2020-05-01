@@ -8,7 +8,7 @@
 
 ## Installing
 
-`forest_puller` is a python package and hence is compatible with all operating systems: Linux, macOS and Windows. The only prerequisite is python3 which is often installed by default. Simply type the following on your terminal:
+`waste_flow` is a python package and hence is compatible with all operating systems: Linux, macOS and Windows. The only prerequisite is python3 which is often installed by default. Simply type the following on your terminal:
 
     $ pip3 install --user waste_flow
 
