@@ -2,6 +2,10 @@
 
 `waste_flow` is a python package for retrieving data concerning the waste management of European countries.
 
+<p align="center">
+<img height="200" src="waste_flow/reports/template/logo.png?raw=true">
+</p>
+
 ## Installing
 
 `forest_puller` is a python package and hence is compatible with all operating systems: Linux, macOS and Windows. The only prerequisite is python3 which is often installed by default. Simply type the following on your terminal:
@@ -21,44 +25,7 @@ If you do not have `pip` on your system you can usually get it with these comman
 
 ## Usage
 
-For instance to retrieve the XYZ can do the following:
-
-```python
-# Import #
-from waste_flow import countries
-
-# Get the country #
-austria = countries['AT']
-
-# Get the 2017 indexed dataframe #
-at_2017 = austria.years[2017].indexed
-
-# Print some data #
-print(at_2017.loc['xxx', 'yyy']['zzz'])
-```
-
-     904282.4970403439
-
-To see what information is available you can of course display the column titles and row indexes of that data frame:
-
-```python
-print(at_2017.columns)
-print(at_2017.index)
-```
-
-To examine what countries and what years are available:
-
-```python
-print(list(c.iso2_code for c in countries.values()))
-print(list(y for y in austria.years))
-```
-
-To get a large data frame with all years and all countries inside:
-
-```python
-from forest_puller.ipcc.concat import df
-print(df)
-```
+* TODO
 
 ## Cache
 

@@ -44,5 +44,10 @@ Typically you would run this file from a command line like this:
 #print(waste_gen.dry_mass)
 
 ###############################################################################
-from waste_flow.outputs import outputs
-print(outputs.make_dry_mass())
+#from waste_flow.outputs import outputs
+#print(outputs.make_dry_mass('~/test/dry_mass.xlsx'))
+
+###############################################################################
+from waste_flow.reports.comparison import ComparisonReport
+report = ComparisonReport('~/test/report.pdf')
+print(report())

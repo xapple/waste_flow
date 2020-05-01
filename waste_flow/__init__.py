@@ -49,7 +49,7 @@ else:
                " the '%s' environment variable.\n In this case it will default"
                " to:\n\n '%s',\n which might lead to re-caching after every startup.\n")
     message = message % (env_var_name, cache_dir)
-    #warnings.warn(message)
+    warnings.warn(message)
 
 # Monkey patch pandas library #
 import plumbing.pandas_patching

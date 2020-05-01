@@ -18,17 +18,15 @@ Typically you can use this class this like:
 # Internal modules #
 
 # First party modules #
-from autopaths import Path
 from plumbing.xls_tables import MultiDataFrameXLS
 
 # Third party modules #
-import pandas
 
 ###############################################################################
 class Outputs:
     """Takes care of creating some files that contain outputs."""
 
-    def make_dry_mass(self, path='~/test/dry_mass.xlsx'):
+    def make_dry_mass(self, path):
         """
         Create an excel file with one sheet per country.
         And containing the dry mass tables for each year.
