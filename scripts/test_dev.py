@@ -45,4 +45,4 @@ Typically you would run this file from a command line like this:
 
 ###############################################################################
 from waste_flow.outputs import outputs
-print(outputs.make_excel())
+print(outputs.make_dry_mass())

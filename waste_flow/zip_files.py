@@ -96,7 +96,9 @@ class ZipFile:
         We don't specify na_values = [':', ': '] here because it's done later.
         """
         # Check the cache #
-        if not self.cache_is_valid: self.refresh_cache()
+        if not self.cache_is_valid:
+            self.refresh_cache()
+            if not self.cache_is_valid: raise Exception("Error refreshing cache")
         # Load the CSV #
         with gzip.open(self.zip_path) as csv_handle:
             text_mode = io.TextIOWrapper(csv_handle, encoding=self.encoding)
@@ -145,9 +147,9 @@ class ZipFile:
 class WasteGen(ZipFile):
 
     short_name = "env_wasgen"
-    long_name  = "Generation of waste by waste category, hazardousness and NACE Rev. 2 activity"
+    long_name  = "Generation of waste by waste category, hazardousness and NACE Rev. 2 activity."
     base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
-    url_param  = "?file=data/env_wastrt.tsv.gz"
+    url_param  = "?file=data/env_wasgen.tsv.gz"
     zip_name   = "env_wasgen.tsv.gz"
     csv_name   = "env_wasgen.tsv"
     encoding   = "ISO-8859-1"
@@ -157,7 +159,7 @@ class WasteGen(ZipFile):
 class WasteTrt(ZipFile):
 
     short_name = "env_wastrt"
-    long_name  = "Treatment of waste by waste category, hazardousness and waste management operations"
+    long_name  = "Treatment of waste by waste category, hazardousness and waste management operations."
     base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
     url_param  = "?file=data/env_wastrt.tsv.gz"
     zip_name   = "env_wastrt.tsv.gz"

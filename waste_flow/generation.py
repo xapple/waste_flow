@@ -127,8 +127,10 @@ class WasteGeneration:
         dry_coef = dry_coef.fraction
         # Load dataframe #
         df = self.spread_muni
-        # Multiply #
-        df *= dry_coef * 1000
+        # Multiply for dry mass #
+        df *= dry_coef
+        # Multiply for tonnes to kg #
+        df *= 1000
         # Return #
         return df
 
