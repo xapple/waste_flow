@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
         name             = 'waste_flow',
-        version          = '1.0.5',
+        version          = '1.0.6',
         description      = 'A package for retrieving data concerning waste management on the European continent.',
         long_description = open('README.md').read(),
         long_description_content_type = 'text/markdown',
