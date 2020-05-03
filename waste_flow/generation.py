@@ -125,7 +125,7 @@ class WasteGeneration:
         # Load dry wet coefficients #
         dry_coef = module_dir + 'extra_data/dry_weight_coef.csv'
         dry_coef = pandas.read_csv(str(dry_coef), index_col=0)
-        dry_coef = dry_coef.fraction
+        dry_coef = 1 - dry_coef.fraction
         # Load dataframe #
         df = self.spread_muni
         # Multiply for dry mass #

@@ -21,7 +21,7 @@ from plumbing.graphs.solo_legend import SoloLegend
 
 # Third party modules #
 from matplotlib import pyplot
-import pandas, brewer2mpl
+import pandas
 
 # Load names #
 nace_names  = module_dir + 'extra_data/nace_to_full_name.csv'
@@ -159,17 +159,30 @@ class GenLegend(SoloLegend):
     # Params #
     capitalize = False
 
-    # Colors #
-    colors = brewer2mpl.get_map('Set1', 'qualitative', 7).mpl_colors
-
     @property_cached
     def label_to_color(self):
         """Mapping of each waste to type to colors."""
-        return dict(zip(waste_names['description'], self.colors[0:7]))
+        return {
+            "Paper and cardboard wastes":     'gray',
+            "Rubber wastes":                  'blue',
+            "Wood wastes":                    'brown',
+            "Textile wastes":                 'purple',
+            "Animal and mixed food waste":    'pink',
+            "Vegetal wastes":                 'green',
+            "Animal feces urine and manure":  'yellow',
+        }
 
     @property_cached
     def name_to_color(self):
-        return dict(zip(waste_names['waste'], self.colors[0:7]))
+        return {
+            'W072': 'gray',
+            'W073': 'blue',
+            'W075': 'brown',
+            'W076': 'purple',
+            'W091': 'pink',
+            'W092': 'green',
+            'W093': 'yellow',
+        }
 
 ###############################################################################
 # Every country has a several graphs (each graph has several subplots) #
