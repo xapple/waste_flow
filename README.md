@@ -1,4 +1,4 @@
-# `waste_flow` version 1.0.2
+# `waste_flow` version 1.0.3
 
 `waste_flow` is a python package for retrieving data concerning the waste management of European countries.
 
@@ -18,14 +18,31 @@ Or if you want to install it for all users of the system:
 
 If you do not have `pip` on your system you can usually get it with these commands (fresh Ubuntu 18-LTS):
 
-    sudo apt-get update
-    sudo apt-get install python3-distutils
-    curl -O https://bootstrap.pypa.io/get-pip.py
-    python3 get-pip.py --user
+    $ sudo apt-get update
+    $ sudo apt-get install python3-distutils
+    $ curl -O https://bootstrap.pypa.io/get-pip.py
+    $ python3 get-pip.py --user
 
 ## Usage
 
-* TODO
+Here are some examples to use the pacakge.
+
+To retrieve the large dataframe with dry mass for all years and all countries you can do the following:
+
+    from waste_flow.generation import waste_gen
+    print(waste_gen.dry_mass)
+
+If you just want to see how much rubber waste did the UK generate in 2008, you can do the following:
+
+    from waste_flow.generation import waste_gen
+    params = ("waste   == 'W073' & "
+              "country == 'UK' & "
+              "year    == '2008'")
+    result = waste_gen.dry_long.query(params) 
+    print(result)
+
+To generate the waste generation plots do the following:
+
 
 ## Cache
 
