@@ -58,20 +58,29 @@ class ComparisonTemplate(ReportTemplate):
         self.report = parent
 
     #-------------------------------- XXXX -----------------------------------#
-    def comp_total_area(self):
+    def waste_gen_graphs(self):
         # Caption #
         caption = "XXXX"
         # Import #
-        from waste_flow.viz.area_comp import all_graphs, legend
+        from waste_flow.viz.gen import countries, legend
         # Initialize #
         result = ""
-        # Loop every country batch #
-        for graph in all_graphs: result += str(BareFigure(graph=graph)) + '\n\n'
         # Add the legend #
+        caption = "Legend for waste generation"
         result += str(ScaledFigure(graph   = legend,
                                    caption = caption,
-                                   label   = 'xxxx',
-                                   width   = '9em'))
+                                   label   = 'gen_legend',
+                                   width   = '14em'))
+        # Loop every country batch #
+        for viz in countries.values():
+            result += '\n--\n**%s**\n--\n\n' % viz.country.long_name
+            for graph in viz.all_graphs:
+                result += str(BareFigure(graph=graph)) + '\n\n'
+        # Add the legend #
+        #result += str(ScaledFigure(graph   = legend,
+        #                           caption = caption,
+        #                           label   = 'xxxx',
+        #                           width   = '9em'))
         # Return #
         return result
 

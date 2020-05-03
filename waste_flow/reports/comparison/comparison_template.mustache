@@ -26,7 +26,35 @@ Processing
 -------
 
 
-Scope and extent of data sources
---------------------------------
+Data source
+-----------
 
-XXXX
+The following visualizations are created by downloading the following file from the eurostat website.
+
+    short_name = "env_wasgen"
+    long_name  = "Generation of waste by waste category, hazardousness and NACE Rev. 2 activity."
+    base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
+    url_param  = "?file=data/env_wasgen.tsv.gz"
+
+And parsing it as a `pandas.DataFrame` object.
+
+
+Processing
+----------
+
+The data was filtered for the keeping the `Units='T'` and `hazard='HAZ_NHAZ'` entries only.
+
+Also, only certain waste categories and nace categories of interest were kept.
+
+Next, some countries were incomplete and were discarded: AL, XK, TR
+
+Following that, the municipal waste (W101) category is removed and part of it is spread out within the other categories based on some coefficients.
+
+Finally, the values in wet tonnes are converted to dry mass in kilograms based on some coefficients.
+
+\pagebreak
+
+Waste generation for all countries
+----------------------------------
+
+{{waste_gen_graphs}}

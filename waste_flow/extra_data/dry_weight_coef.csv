@@ -1,8 +1,8 @@
-waste,fraction,description
-W072,0.06,Paper and cardboard wastes
-W073,0.02,Rubber wastes
-W075,0.20,Wood wastes
-W076,0.10,Textile wastes
-W091,0.70,Animal and mixed food waste
-W092,0.60,Vegetal wastes
-W093,0.80,Animal feces urine and manure
+waste,fraction
+W072,0.06
+W073,0.02
+W075,0.20
+W076,0.10
+W091,0.70
+W092,0.60
+W093,0.80

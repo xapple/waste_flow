@@ -1,7 +1,7 @@
-waste,fraction,description
-W072,0.1505,Paper and cardboard wastes
-W073,0.0024,Rubber wastes
-W075,0.0075,Wood wastes
-W076,0.0024,Textile wastes
-W091,0.2500,Animal and mixed food waste
-W092,0.0400,Vegetal wastes
+waste,fraction
+W072,0.1505
+W073,0.0024
+W075,0.0075
+W076,0.0024
+W091,0.2500
+W092,0.0400

@@ -12,11 +12,17 @@ Unit D1 Bioeconomy.
 
 # Internal modules #
 from waste_flow.zip_files import waste_gen as gen_orig
+from waste_flow import module_dir
 
 # First party modules #
 from plumbing.cache import property_cached
 
 # Third party modules #
+import pandas
+
+# Load country codes #
+country_codes = module_dir + 'extra_data/foastat_countries.csv'
+country_codes = pandas.read_csv(str(country_codes))
 
 ###############################################################################
 class Country:
@@ -28,6 +34,12 @@ class Country:
 
     def __repr__(self):
         return '%s object code "%s"' % (self.__class__, self.code)
+
+    @property_cached
+    def long_name(self):
+        """The long name of this country."""
+        row = country_codes.query('nuts_zero_2010 == @self.code')
+        return row.iloc[0]['country']
 
     @property_cached
     def dry_mass(self):

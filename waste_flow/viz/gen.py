@@ -11,15 +11,26 @@ Unit D1 Bioeconomy.
 # Built-in modules #
 
 # Internal modules #
-from waste_flow import cache_dir
+from waste_flow import cache_dir, module_dir
 from waste_flow.country import all_countries
 
 # First party modules #
 from plumbing.graphs.multiplot import Multiplot
 from plumbing.cache import property_cached
+from plumbing.graphs.solo_legend import SoloLegend
 
 # Third party modules #
 from matplotlib import pyplot
+import pandas, brewer2mpl
+
+# Load names #
+nace_names  = module_dir + 'extra_data/nace_to_full_name.csv'
+nace_names  = pandas.read_csv(str(nace_names))
+waste_names = module_dir + 'extra_data/waste_to_full_name.csv'
+waste_names = pandas.read_csv(str(waste_names))
+
+# Where to store the graphs #
+base_dir = cache_dir + 'graphs/gen_viz/'
 
 ###############################################################################
 class GenerationViz:
@@ -40,7 +51,7 @@ class GenerationViz:
     def df(self):
         # Load #
         df = self.country.dry_mass
-        # Swap #
+        # Swap index levels #
         df = df.reset_index()
         df = df.sort_values(['nace_r2', 'year'])
         df = df.set_index(['nace_r2', 'year'])
@@ -72,7 +83,7 @@ class GenPlot(Multiplot):
 
     # Labels for axes #
     label_x = 'Year'
-    label_y = 'Dry weight in kilograms'
+    label_y = 'Dry mass in kilograms'
 
     # Size of grid #
     n_rows = 1
@@ -81,8 +92,6 @@ class GenPlot(Multiplot):
     def __init__(self, parent, batch):
         # Save batch #
         self.batch = batch
-        # Pick directory #
-        base_dir = cache_dir + 'graphs/gen_viz/'
         # Call parent class #
         super(GenPlot, self).__init__(parent, base_dir)
 
@@ -103,8 +112,9 @@ class GenPlot(Multiplot):
         for waste in wastes:
             axes.plot(df[waste],
                       marker     = ".",
-                      markersize = 10.0,
-                      color      = 'k',
+                      markersize = 20.0,
+                      linewidth  = 5.0,
+                      color      = legend.name_to_color[waste],
                       **kw)
 
     def plot(self, **kwargs):
@@ -125,10 +135,11 @@ class GenPlot(Multiplot):
         self.y_grid_on()
 
         # Add the sector name as a title #
-        #for country, axes in zip(self.batch, self.axes):
-        #    row   = country_codes.loc[country_codes['iso2_code'] == country]
-        #    text  = row.iloc[0]['country']
-        #    axes.text(0.05, 1.05, text, transform=axes.transAxes, ha="left", size=22)
+        for batch, axes in zip(self.batch, self.axes):
+            row  = nace_names.query('nace_r2 == @batch')
+            text = row.iloc[0]['description']
+            if len(text) > 30: text = text[:30] + ' [...]'
+            axes.text(0.05, 1.05, text, transform=axes.transAxes, ha="left", size=22)
 
         # Prune graphs if we are shorter than n_cols #
         if len(self.batch) < self.n_cols:
@@ -143,5 +154,26 @@ class GenPlot(Multiplot):
         return self.fig
 
 ###############################################################################
+class GenLegend(SoloLegend):
+
+    # Params #
+    capitalize = False
+
+    # Colors #
+    colors = brewer2mpl.get_map('Set1', 'qualitative', 7).mpl_colors
+
+    @property_cached
+    def label_to_color(self):
+        """Mapping of each waste to type to colors."""
+        return dict(zip(waste_names['description'], self.colors[0:7]))
+
+    @property_cached
+    def name_to_color(self):
+        return dict(zip(waste_names['waste'], self.colors[0:7]))
+
+###############################################################################
 # Every country has a several graphs (each graph has several subplots) #
 countries = {c.code: GenerationViz(c) for c in all_countries}
+
+# Create a separate standalone legend #
+legend = GenLegend(base_dir = base_dir)
