@@ -43,6 +43,11 @@ If you just want to see how much rubber waste did the UK generate in 2008, you c
 
 To generate the waste generation plots do the following:
 
+    from waste_flow.viz.gen import legend
+    print(legend.plot(rerun=True))
+    from waste_flow.viz.gen import countries
+    for gen_viz in countries.values():
+        print(gen_viz.plot(rerun=True))
 
 ## Cache
 
