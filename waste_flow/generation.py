@@ -127,11 +127,21 @@ class WasteGeneration:
         dry_coef = pandas.read_csv(str(dry_coef), index_col=0)
         dry_coef = 1 - dry_coef.fraction
         # Load dataframe #
-        df = self.spread_muni
+        df = self.spread_muni.copy()
         # Multiply for dry mass #
         df *= dry_coef
         # Multiply for tonnes to kg #
         df *= 1000
+        # Return #
+        return df
+
+    @property
+    def dry_long(self):
+        """Same as above but in the long format."""
+        # Load #
+        df = self.dry_mass
+        df = df.reset_index()
+        df = df.melt(id_vars=['country', 'year', 'nace_r2'], value_name='tonnes', var_name='waste')
         # Return #
         return df
 
