@@ -19,7 +19,7 @@ Waste category
 
 --------------------
 
-The C and C-10 and subgroups, don't sum twice.
+The C and C-10 are subgroups, don't sum twice.
 
 ------------------
 
@@ -40,7 +40,7 @@ Multiply for the dry content. These coefficients also come from studies. Ref mis
 
 -----------------------
 
-We also need the destinations from eurostat to perform a matrix multiplication with them.
+We also need the waste destinations from eurostat to perform a matrix multiplication with them.
 
 -----------------------
 
@@ -50,7 +50,7 @@ https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=env_wasgen&lang=en
 
 -----------------------
 
-Send mail to Valeria about the "0 e" values.
+The "0 e" values problem can be explained with the legend at the bottom of the GUI version.
 
 The second "household" should be called "municipal waste" to avoid confusion
 
@@ -66,3 +66,10 @@ Questions first batch:
 * Household gets combination of categories? New categories too such as food waste and green waste?
 * Difference between treated and untreated wood?
 * Rubber and textiles natural?
+* Bio and non-bio parts?
+
+-----------------------
+
+TODO:
+
+* Check missing values in the graphs
