@@ -11,8 +11,9 @@ Unit D1 Bioeconomy.
 # Built-in modules #
 
 # Internal modules #
-from waste_flow import cache_dir, module_dir
+from waste_flow import cache_dir
 from waste_flow.country import all_countries
+from waste_flow.common import nace_names
 
 # First party modules #
 from plumbing.graphs.multiplot import Multiplot
@@ -21,22 +22,14 @@ from plumbing.graphs.solo_legend import SoloLegend
 
 # Third party modules #
 from matplotlib import pyplot
-import pandas
-
-# Load names #
-nace_names  = module_dir + 'extra_data/nace_to_full_name.csv'
-nace_names  = pandas.read_csv(str(nace_names))
-waste_names = module_dir + 'extra_data/waste_to_full_name.csv'
-waste_names = pandas.read_csv(str(waste_names))
 
 # Where to store the graphs #
-base_dir = cache_dir + 'graphs/gen_viz/'
+base_dir = cache_dir + 'graphs/gen_by_country/'
 
 ###############################################################################
-class GenerationViz:
+class GenByCountryViz:
     """
-    Every country has one GenerationViz object containing
-    several graphs.
+    Every country has one GenByCountryViz object containing several graphs.
     Each graph contains a fixed number of subplots.
     Each subplot corresponds to one sector (nace).
     """
@@ -63,16 +56,16 @@ class GenerationViz:
         # Get all sectors #
         sectors = self.df.index.levels[0]
         # Sort sectors into batches of a given size #
-        size    = GenPlot.n_cols
+        size    = GenCountryPlot.n_cols
         count   = len(sectors)
         batches = [sectors[i:i + size] for i in range(0, count, size)]
         # One graph per sector #
-        result = [GenPlot(self, batch) for batch in batches]
+        result = [GenCountryPlot(self, batch) for batch in batches]
         # Return #
         return result
 
 ###############################################################################
-class GenPlot(Multiplot):
+class GenCountryPlot(Multiplot):
 
     # Basic params #
     formats    = ('pdf',)
@@ -93,7 +86,7 @@ class GenPlot(Multiplot):
         # Save batch #
         self.batch = batch
         # Call parent class #
-        super(GenPlot, self).__init__(parent, base_dir)
+        super(GenCountryPlot, self).__init__(parent, base_dir)
 
     @property_cached
     def short_name(self):
@@ -135,8 +128,8 @@ class GenPlot(Multiplot):
         self.y_grid_on()
 
         # Add the sector name as a title #
-        for batch, axes in zip(self.batch, self.axes):
-            row  = nace_names.query('nace_r2 == @batch')
+        for sector, axes in zip(self.batch, self.axes):
+            row  = nace_names.query('nace_r2 == @sector')
             text = row.iloc[0]['description']
             if len(text) > 30: text = text[:30] + ' [...]'
             axes.text(0.05, 1.05, text, transform=axes.transAxes, ha="left", size=22)
@@ -154,7 +147,7 @@ class GenPlot(Multiplot):
         return self.fig
 
 ###############################################################################
-class GenLegend(SoloLegend):
+class GenByCountryLegend(SoloLegend):
 
     # Params #
     capitalize = False
@@ -186,7 +179,7 @@ class GenLegend(SoloLegend):
 
 ###############################################################################
 # Every country has a several graphs (each graph has several subplots) #
-countries = {c.code: GenerationViz(c) for c in all_countries}
+countries = {c.code: GenByCountryViz(c) for c in all_countries}
 
 # Create a separate standalone legend #
-legend = GenLegend(base_dir = base_dir)
+legend = GenByCountryLegend(base_dir = base_dir)

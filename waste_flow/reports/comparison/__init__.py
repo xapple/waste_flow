@@ -57,30 +57,48 @@ class ComparisonTemplate(ReportTemplate):
         self.parent = parent
         self.report = parent
 
-    #-------------------------------- XXXX -----------------------------------#
-    def waste_gen_graphs(self):
-        # Caption #
-        caption = "XXXX"
+    #----------------------------- By country --------------------------------#
+    def waste_gen_by_country(self):
         # Import #
-        from waste_flow.viz.gen import countries, legend
+        from waste_flow.viz.gen_by_country import countries, legend
+        # Caption #
+        caption = "Legend for waste generation"
         # Initialize #
         result = ""
         # Add the legend #
-        caption = "Legend for waste generation"
         result += str(ScaledFigure(graph   = legend,
                                    caption = caption,
-                                   label   = 'gen_legend',
+                                   label   = 'wastes_legend',
                                    width   = '14em'))
         # Loop every country batch #
         for viz in countries.values():
             result += '\n--\n**%s**\n--\n\n' % viz.country.long_name
             for graph in viz.all_graphs:
                 result += str(BareFigure(graph=graph)) + '\n\n'
+        # Return #
+        return result
+
+    #----------------------------- By sector --------------------------------#
+    def waste_gen_by_sector(self):
+        # Import #
+        from waste_flow.viz.gen_by_sector import sectors, legend
+        from waste_flow.common            import waste_names
+        # Caption #
+        caption = "Legend for waste generation"
+        # Initialize #
+        result = ""
         # Add the legend #
-        #result += str(ScaledFigure(graph   = legend,
-        #                           caption = caption,
-        #                           label   = 'xxxx',
-        #                           width   = '9em'))
+        result += str(ScaledFigure(graph   = legend,
+                                   caption = caption,
+                                   label   = 'wastes_legend',
+                                   width   = '14em'))
+        # Loop every country batch #
+        for viz in sectors.values():
+            row  = waste_names.query('waste == @viz.sector')
+            text = row.iloc[0]['description']
+            result += '\n--\n**%s**\n--\n\n' % text
+            for graph in viz.all_graphs:
+                result += str(BareFigure(graph=graph)) + '\n\n'
         # Return #
         return result
 
