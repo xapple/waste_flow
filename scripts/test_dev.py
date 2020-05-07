@@ -58,7 +58,7 @@ i = 0
 for gen_viz in all_gen_viz.values():
     print(gen_viz.plot(rerun=True))
     i += 1
-    if i > 99992: break
+    if i > 1: break
 
 ###############################################################################
 from waste_flow.reports.comparison import ComparisonReport

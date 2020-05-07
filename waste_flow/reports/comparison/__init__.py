@@ -82,7 +82,7 @@ class ComparisonTemplate(ReportTemplate):
     def waste_gen_by_sector(self):
         # Import #
         from waste_flow.viz.gen_by_sector import sectors, legend
-        from waste_flow.common            import waste_names
+        from waste_flow.common            import nace_names
         # Caption #
         caption = "Legend for waste generation"
         # Initialize #
@@ -94,7 +94,7 @@ class ComparisonTemplate(ReportTemplate):
                                    width   = '14em'))
         # Loop every country batch #
         for viz in sectors.values():
-            row  = waste_names.query('waste == @viz.sector')
+            row  = nace_names.query('nace_r2 == @viz.sector')
             text = row.iloc[0]['description']
             result += '\n--\n**%s**\n--\n\n' % text
             for graph in viz.all_graphs:
