@@ -73,3 +73,7 @@ Questions first batch:
 TODO:
 
 * Check missing values in the graphs
+
+
+-----------------------
+
