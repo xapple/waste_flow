@@ -62,9 +62,15 @@ class ExcelSheetsToCSV(ConvertExcelToCSV):
     def __call__(self):
         # Open #
         xls = pandas.ExcelFile(str(self.source))
-        # Combine #
-        df = pandas.concat(xls.parse(name) for name in xls.sheet_names)
+        # Initialize #
+        all_sheets = []
+        # Loop #
+        for name in xls.sheet_names:
+            sheet = xls.parse(name)
+            sheet.insert(0, "nace", name)
+            all_sheets.append(sheet)
         # Write #
+        df = pandas.concat(all_sheets)
         df.to_csv(str(self.dest), **self.kwargs)
 
 ###############################################################################
@@ -76,4 +82,4 @@ if __name__ == '__main__':
         converter()
     # The complex one #
     ExcelSheetsToCSV(module_dir + 'extra_data_xls/waste_spreading.xlsx',
-                     module_dir + 'extra_data_csv/')()
+                     module_dir + 'extra_data_csv/', index=False)()
