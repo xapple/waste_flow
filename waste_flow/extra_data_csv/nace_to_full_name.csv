@@ -1,11 +1,20 @@
-nace_r2,description
-A,"Agriculture, forestry and fishing"
-B,"Mining and quarrying"
-C,"Manufacturing"
-D,"Electricity, gas, steam and air conditioning supply"
-E36_E37_E39,"Water collection, treatment and supply; sewerage; remediation activities and other waste management services"
-E38,"Waste collection, treatment and disposal activities; materials recovery"
-F,"Construction"
-G-U_X_G4677,"Services (except wholesale of waste and scrap)"
-G4677,"Wholesale of waste and scrap"
-EP_HH,"Households"
+nace,full_name,category
+A,"Agriculture, forestry and fishing",industrial
+B,Mining and quarrying,industrial
+C10-C12,Manufacture of food products; beverages and tobacco products,industrial
+C13-C15,"Manufacture of textiles, wearing apparel, leather and related products",industrial
+C16,"Manufacture of wood and of products of wood and cork, except furniture; manufacture of articles of straw and plaiting materials",industrial
+C17_C18,Manufacture of paper and paper products; printing and reproduction of recorded media,industrial
+C19,Manufacture of coke and refined petroleum products,industrial
+C20-C22,"Manufacture of chemical, pharmaceutical, rubber and plastic products",industrial
+C23,Manufacture of other non-metallic mineral products,industrial
+C24_C25,"Manufacture of basic metals and fabricated metal products, except machinery and equipment",industrial
+C26-C30,"Manufacture of computer, electronic and optical products, electrical equipment, motor vehicles and other transport equipment",industrial
+C31-C33,"Manufacture of furniture; jewellery, musical instruments, toys; repair and installation of machinery and equipment",industrial
+D,"Electricity, gas, steam and air conditioning supply",industrial
+E36_E37_E39,"Water collection, treatment and supply; sewerage; remediation activities and other waste management services",industrial
+E38,"Waste collection, treatment and disposal activities; materials recovery",industrial
+F,Construction,industrial
+G-U_X_G4677,Services (except wholesale of waste and scrap),industrial
+G4677,Wholesale of waste and scrap,industrial
+EP_HH,Households,household

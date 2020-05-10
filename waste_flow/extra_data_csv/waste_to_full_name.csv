@@ -1,9 +1,22 @@
-waste,description
-W072,Paper and cardboard wastes
-W073,Rubber wastes
-W075,Wood wastes
-W076,Textile wastes
-W091,Animal and mixed food waste
-W092,Vegetal wastes
-W093,Animal feces urine and manure
-W101,Household and similar wastes
+waste,full_name,category,dry_fraction
+W072,Paper and cardboard wastes,eurostat,
+W073,Rubber wastes,eurostat,
+W075,Wood wastes,eurostat,
+W076,Textile wastes,eurostat,
+W091,Animal and mixed food waste,eurostat,
+W092,Vegetal wastes,eurostat,
+W093,"Animal feces, urine and manure",eurostat,
+W101,Municipal waste (originally household waste),eurostat,
+W072_ind,Paper and cardboard wastes,industrial,0.06
+W073_ind,Rubber wastes,industrial,0.02
+W075_ind,Wood wastes,industrial,0.2
+W076_ind,Textile wastes,industrial,0.1
+W091_ind,Animal and mixed food waste,industrial,0.7
+W092_ind,Vegetal wastes,industrial,0.6
+W093_ind,"Animal feces, urine and manure",industrial,0.8
+W072_hh,Paper and cardboard wastes,household,0.06
+W075_hh,Untreated wood,household,0.02
+W091_hh,Food waste,household,0.7
+W092_hh,Green waste,household,0.6
+W7375_hh,"Textiles, leather and rubber",household,0.08
+W9999_hh,"Composites, human hygiene waste (diapers, tampons, condoms, etc.)",household,0.06
