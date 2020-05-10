@@ -35,10 +35,10 @@ class WasteGeneration:
         # Load #
         df = orig_gen.df
         # Filter for only the waste categories we are interested in #
-        from waste_flow.mappings import wastes_selected
+        from waste_flow.common import wastes_selected
         df = df.query("waste in @wastes_selected")
         # Filter for only the nace categories we are interested in #
-        from waste_flow.mappings import nace_selected
+        from waste_flow.common import nace_selected
         df = df.query("nace_r2 in @nace_selected")
         # Return #
         return df
