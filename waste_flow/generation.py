@@ -18,6 +18,7 @@ Typically you can use this class this like:
 # Internal modules #
 from waste_flow           import module_dir, cache_dir
 from waste_flow.zip_files import waste_gen as orig_gen
+from waste_flow.common    import spread_by_nace
 
 # First party modules #
 from plumbing.cache import property_pickled_at
@@ -29,6 +30,7 @@ import pandas
 ###############################################################################
 class WasteGeneration:
 
+    # ----------------------------- Formatting ------------------------------ #
     @property
     def filtered(self):
         """Filter the dataframe some more."""
@@ -67,6 +69,7 @@ class WasteGeneration:
         """
         Transform the dataframe into the wide format
         (and not the long format).
+        With waste categories as column names.
         """
         # Load #
         df = self.long_format
@@ -78,49 +81,43 @@ class WasteGeneration:
         # Return #
         return df
 
+    # ----------------------------- Processing ------------------------------ #
     @property_pickled_at('cache_path')
-    def spread_muni(self):
+    def spread_waste(self):
         """
-        Remove the municipal waste category and spread it (distribute it)
+        The eurostat original waste categories are spread into new custom
+        waste categories. These categories have modified names and are divided
+        into "household" categories and "industrial" categories.
+
+        In particular, we remove the municipal waste category and distribute it
         in other categories according to specific breakdown proportions.
-        These proportions are in "municipal_breakdown.csv"
+        All these proportions are described in "waste_spreading.csv".
+
         The municipal waste (W101) should be called as such because otherwise
         it can be confused with the "household" nace sector.
         """
-        # Load municipal breakdown #
-        muni_break = module_dir + 'extra_data/municipal_breakdown.csv'
-        muni_break = pandas.read_csv(str(muni_break), index_col=0)
-        muni_break = muni_break.fraction
         # Load dataframe #
         df = self.long_format
         # Group #
         groups = df.groupby(['country', 'year', 'nace_r2'])
         # Function #
-        def remove_muni(group):
-            # Index by waste type #
-            pass
-            # Pop a row (there is no pop function in pandas) #
-            selector = group.waste == 'W101'
-            muni_tot = group[selector]['tonnes'].iloc[0]
-            result   = group[~selector]
-            # Distribute the tonnes in the other categories #
-            spread = muni_break * muni_tot
-            # Pandas doesn't really have an add() that conserves NaNs #
-            result = result.set_index('waste')
-            rows   = set(spread.index).intersection(result.index)
-            result.loc[rows, 'tonnes'] += spread
-            # Don't return the grouping variables #
-            return result['tonnes']
+        def spreader(country, year, nace, group):
+            coeffs = spread_by_nace[nace]
+            group  = group.set_index('waste')
+            wastes = group.tonnes * coeffs
+            wastes = wastes.sum(axis=1)
+            1/0
+            return group
         # Apply function #
-        df = groups.apply(remove_muni)
+        df = groups.apply(lambda x: spreader(*x.name, x))
         # Return #
         return df
 
     @property_cached
     def dry_mass(self):
         """
-        Convert all the 'tonnes' values to their dry weight equivalent
-        in kilograms.
+        Convert all the 'wet tonnes' values to their dry weight
+        equivalent in kilograms.
         """
         # Load dry wet coefficients #
         dry_coef = module_dir + 'extra_data/dry_weight_coef.csv'
@@ -149,7 +146,7 @@ class WasteGeneration:
     @property
     def cache_path(self):
         """Specify where on the file system we will pickle the property."""
-        return cache_dir + 'dataframes/' + 'generation.pickle'
+        return cache_dir + 'dataframes/' + 'waste_spread.pickle'
 
 ###############################################################################
 # Create singleton #

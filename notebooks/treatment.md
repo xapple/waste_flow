@@ -25,19 +25,20 @@ with pandas.option_context('display.min_rows', 10, 'display.max_rows', 10):
 # Check waste categories avail
 
 ```python
-from waste_flow.mappings  import wastes_selected
+from waste_flow.common  import wastes_selected
 from waste_flow.treatment import waste_trt
 
 wastes_avail = waste_trt.df.waste.unique()
+print(set(wastes_avail)    - set(wastes_selected))
 print(set(wastes_selected) - set(wastes_avail))
 ```
 
-```python
-
-```
+# aaaa
 
 ```python
-
+from waste_flow.treatment import waste_trt
+print(waste_trt.df.wst_oper.unique())
+print(waste_trt.df.waste.unique())
 ```
 
 ```python

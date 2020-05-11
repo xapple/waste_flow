@@ -11,9 +11,9 @@ Unit D1 Bioeconomy.
 # Built-in modules #
 
 # Internal modules #
-from waste_flow import cache_dir
+from waste_flow         import cache_dir
 from waste_flow.country import all_countries
-from waste_flow.common import nace_names
+from waste_flow.common  import nace_names
 
 # First party modules #
 from plumbing.graphs.multiplot import Multiplot

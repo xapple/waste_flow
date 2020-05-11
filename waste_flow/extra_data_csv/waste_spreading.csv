@@ -1,4 +1,4 @@
-sheet,spreading_coef,W072,W073,W075,W076,W091,W092,W093,W101
+nace,waste,W072,W073,W075,W076,W091,W092,W093,W101
 default,W072_ind,1.0,,,,,,,0.1505
 default,W073_ind,,1.0,,,,,,0.0024
 default,W075_ind,,,1.0,,,,,0.0075

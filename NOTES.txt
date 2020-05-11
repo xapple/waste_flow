@@ -48,6 +48,10 @@ You can get the label correspondence in the GUI by pressing the "+" buttons here
 
 https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=env_wasgen&lang=en
 
+For the treatment:
+
+https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=env_wastrt&lang=en
+
 -----------------------
 
 The "0 e" values problem can be explained with the legend at the bottom of the GUI version.
@@ -65,8 +69,6 @@ Questions first batch:
 * Splitting into two categories: industrial and household?
 * Household gets combination of categories? New categories too such as food waste and green waste?
 * Difference between treated and untreated wood?
-* Rubber and textiles natural?
-* Bio and non-bio parts?
 
 -----------------------
 
@@ -74,6 +76,15 @@ TODO:
 
 * Check missing values in the graphs
 
+* Check matrix index used for multiplication (not just position in the matrix)
+
+* Check how NaNs are conserved multiplication during matrix multiplication
 
 -----------------------
 
+To add:
+
+* Wet fraction applies to original waste categories or new ones?
+* References for all numbers in wet fraction and waste category spreading
+* Disposal categories refer to original waste categories, so how does waste destinations mix with the new categories created?
+* Rubber and textiles natural? Bio and non-bio parts?

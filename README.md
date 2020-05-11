@@ -8,11 +8,11 @@
 
 ## Installing
 
-`waste_flow` is a python package and hence is compatible with all operating systems: Linux, macOS and Windows. The only prerequisite is python3 which is often installed by default. Simply type the following on your terminal:
+Since `waste_flow` is written in python it is compatible with all operating systems: Linux, macOS and Windows. The only prerequisite is python3 which is often installed by default. Simply type the following commands on your terminal:
 
     $ pip3 install --user waste_flow
 
-Or if you want to install it for all users of the system:
+Alternatively if you want to install it for all users of the system:
 
     $ sudo pip3 install waste_flow
 
@@ -25,7 +25,7 @@ If you do not have `pip` on your system you can usually get it with these comman
 
 ## Usage
 
-Here are some examples to use the pacakge.
+Bellow are some examples to illustrate the various ways there are to use this package.
 
 To retrieve the large dataframe with dry mass for all years and all countries you can do the following:
 
@@ -38,7 +38,7 @@ If you just want to see how much rubber waste did the UK generate in 2008, you c
     params = ("waste   == 'W073' & "
               "country == 'UK' & "
               "year    == '2008'")
-    result = waste_gen.dry_long.query(params) 
+    result = waste_gen.dry_long.query(params)
     print(result)
 
 To generate the waste generation plots do the following:
@@ -52,3 +52,7 @@ To generate the waste generation plots do the following:
 ## Cache
 
 When you import `waste_flow`, we will check the `$WASTE_FLOW_CACHE` environment variable to see where to download and store the cached data. If this variable is not set, we will default to the platform's temporary directory and clone a repository there. This could result in re-downloading the cache after every reboot.
+
+## Features
+
+The first time you run `waste_flow`, it will automatically download the raw CSVs from the EUROSTAT website to disk and parse the resulting data. On later runs, `waste_flow` will simply retrieve this information directly from the disk. This means that the first time you execute the pipeline things will be noticeably slower: this is normal.
