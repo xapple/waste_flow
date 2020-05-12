@@ -13,6 +13,10 @@ jupyter:
     name: python3
 ---
 
+```python
+import waste_flow
+```
+
 # Treatment
 
 ```python
@@ -33,7 +37,7 @@ print(set(wastes_avail)    - set(wastes_selected))
 print(set(wastes_selected) - set(wastes_avail))
 ```
 
-# aaaa
+# Unique values in columns
 
 ```python
 from waste_flow.treatment import waste_trt
