@@ -1,0 +1,9 @@
+treatment,full_name,category
+DSP_L_OTH,"Disposal - landfill and other (D1-D7, D12)",disposal
+DSP_L,"Disposal - landfill (D1, D5, D12)",disposal
+DSP_I,Disposal - incineration (D10),disposal
+DSP_OTH,"Disposal - other (D2-D4, D6-D7)",disposal
+RCV_E,Recovery - energy recovery (R1),recovery
+RCV_R_B,Recovery - recycling and backfilling (R2-R11),recovery
+RCV_R,Recovery - recycling,recovery
+RCV_B,Recovery - backfilling ,recovery
