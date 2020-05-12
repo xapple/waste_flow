@@ -17,8 +17,8 @@ Typically you can use this class this like:
 
 # Internal modules #
 from waste_flow           import module_dir, cache_dir
+from waste_flow.spreading import spread
 from waste_flow.zip_files import waste_gen as orig_gen
-from waste_flow.common    import spread_by_nace
 
 # First party modules #
 from plumbing.cache import property_pickled_at
@@ -102,12 +102,12 @@ class WasteGeneration:
         groups = df.groupby(['country', 'year', 'nace_r2'])
         # Function #
         def spreader(country, year, nace, group):
-            coeffs = spread_by_nace[nace]
+            coeffs = spread.by_nace[nace]
             group  = group.set_index('waste')
-            wastes = group.tonnes * coeffs
-            wastes = wastes.sum(axis=1)
+            wastes = group['tonnes'] * coeffs
+            summed = wastes.sum(axis=1)
             1/0
-            return group
+            return summed
         # Apply function #
         df = groups.apply(lambda x: spreader(*x.name, x))
         # Return #

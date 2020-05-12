@@ -82,9 +82,12 @@ TODO:
 
 -----------------------
 
-To add:
+More questions:
 
 * Wet fraction applies to original waste categories or new ones?
+
 * References for all numbers in wet fraction and waste category spreading
+
 * Disposal categories refer to original waste categories, so how does waste destinations mix with the new categories created?
+
 * Rubber and textiles natural? Bio and non-bio parts?

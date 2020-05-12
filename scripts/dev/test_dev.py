@@ -72,8 +72,9 @@ Typically you would run this file from a command line like this:
 #print(nace_selected)
 
 ###############################################################################
-#from waste_flow.common import spread_by_nace
-#print(spread_by_nace)
+#from waste_flow.spreading import spread
+#print(spread.by_nace['A'])
+#print(spread.by_nace['EP_HH'])
 
 ###############################################################################
 from waste_flow.generation import waste_gen
