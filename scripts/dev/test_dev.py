@@ -78,5 +78,5 @@ Typically you would run this file from a command line like this:
 
 ###############################################################################
 from waste_flow.generation import waste_gen
-del waste_gen.spread_waste
-print(waste_gen.spread_waste)
+#del waste_gen.spread_waste
+print(waste_gen.dry_mass)

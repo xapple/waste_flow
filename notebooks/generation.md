@@ -96,39 +96,7 @@ print(len(nace_selected))
 print(set(nace_selected) - set(nace_avail))
 ```
 
-# Remove municipal
-
-```python
-import pandas
-from waste_flow.generation import waste_gen
-with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
-    display(waste_gen.spread_muni)
-```
-
-# Convert to dry weight
-
-```python
-import pandas
-from waste_flow.generation import waste_gen
-from waste_flow import module_dir
-
-df = waste_gen.spread_muni
-
-dry_coef = module_dir + 'extra_data/dry_weight_coef.csv'
-dry_coef = pandas.read_csv(str(dry_coef), index_col=0)
-dry_coef = dry_coef.fraction
-
-with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
-    display(dry_coef)
-    display(df)
-    
-result = df * dry_coef * 1000
-
-with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
-    display(result)
-```
-
-# Test
+# Test swapping levels
 
 ```python
 # Import #
@@ -167,6 +135,33 @@ with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
     display(result[0])
     display(result[1])
     display(result[2])
+```
+
+# Check waste spreading
+
+```python
+import pandas
+from waste_flow.generation import waste_gen
+
+with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
+    display(waste_gen.wide_format)
+    display(waste_gen.spread_waste)
+```
+
+```python
+display(waste_gen.spread_waste.dtypes)
+```
+
+# Check dry weight
+
+```python
+import pandas
+from waste_flow.generation import waste_gen
+
+with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
+    display(waste_gen.dry_mass)
+    display(waste_gen.dry_long)
+
 ```
 
 ```python

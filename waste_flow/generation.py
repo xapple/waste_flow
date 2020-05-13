@@ -16,7 +16,8 @@ Typically you can use this class this like:
 # Built-in modules #
 
 # Internal modules #
-from waste_flow           import module_dir, cache_dir
+from waste_flow           import cache_dir
+from waste_flow.common    import waste_names
 from waste_flow.spreading import spread
 from waste_flow.zip_files import waste_gen as orig_gen
 
@@ -100,18 +101,25 @@ class WasteGeneration:
         df = self.long_format
         # Group #
         groups = df.groupby(['country', 'year', 'nace_r2'])
-        # Function #
-        def spreader(country, year, nace, group):
-            coeffs = spread.by_nace[nace]
-            group  = group.set_index('waste')
-            wastes = group['tonnes'] * coeffs
-            summed = wastes.sum(axis=1)
-            1/0
-            return summed
         # Apply function #
-        df = groups.apply(lambda x: spreader(*x.name, x))
+        df = groups.apply(lambda x: self.spreader(*x.name, x))
         # Return #
         return df
+
+    @staticmethod
+    def spreader(country, year, nace, subdf):
+        """This function is applied to every row of the above dataframe."""
+        # Load #
+        coeffs  = spread.by_nace[nace]
+        wastes  = subdf.set_index('waste')['tonnes']
+        # Multiply #
+        product = coeffs * wastes
+        # Restore zeros and remove NaNs #
+        product[coeffs == 0.0] = 0.0
+        # But otherwise keep NaNs #
+        summed  = product.sum(axis=1, skipna=False)
+        # Return #
+        return summed
 
     @property_cached
     def dry_mass(self):
@@ -119,18 +127,19 @@ class WasteGeneration:
         Convert all the 'wet tonnes' values to their dry weight
         equivalent in kilograms.
         """
-        # Load dry wet coefficients #
-        dry_coef = module_dir + 'extra_data/dry_weight_coef.csv'
-        dry_coef = pandas.read_csv(str(dry_coef), index_col=0)
-        dry_coef = 1 - dry_coef.fraction
-        # Load dataframe #
-        df = self.spread_muni.copy()
+        # Remove the original waste categories #
+        wet_coefs = waste_names.query("category != 'eurostat'")
+        wet_coefs = wet_coefs.reset_index(drop=True)
+        # Load wet coefficients by waste #
+        wet_coefs = wet_coefs.set_index('waste')['wet_fraction']
+        # Compute dry coefficients #
+        dry_coef = 1 - wet_coefs
         # Multiply for dry mass #
-        df *= dry_coef
+        result = self.spread_waste * wet_coefs
         # Multiply for tonnes to kg #
-        df *= 1000
+        result *= 1000
         # Return #
-        return df
+        return result
 
     @property
     def dry_long(self):
@@ -138,7 +147,7 @@ class WasteGeneration:
         # Load #
         df = self.dry_mass
         df = df.reset_index()
-        df = df.melt(id_vars=['country', 'year', 'nace_r2'], value_name='tonnes', var_name='waste')
+        df = df.melt(id_vars=['country', 'year', 'nace_r2'], value_name='kg_dry', var_name='waste')
         # Return #
         return df
 

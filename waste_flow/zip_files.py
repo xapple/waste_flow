@@ -50,7 +50,7 @@ from plumbing.scraping import download_from_url
 from autopaths         import Path
 
 # Third party modules #
-import pandas, numpy
+import pandas
 
 ###############################################################################
 class ZipFile:
