@@ -152,9 +152,15 @@ class WasteAnalysis:
         selector = df['nace_r2'] == 'EP_HH'
         house = df[selector]
         indus = df[~selector]
+        # Reset index #
+        indus  = indus.reset_index(drop=True)
+        house  = house.reset_index(drop=True)
         # Sum the industrial #
-        groups = indus.groupby(['country', 'year', 'wst_oper'])
+        groups = indus.groupby(['country', 'year', 'waste', 'wst_oper'])
         indus  = groups.aggregate({'kg_dry': 'sum'})
+        # Reset index #
+        indus  = indus.reset_index()
+        # Create a new artifical nace that is the sum of the others #
         indus['nace_r2'] = 'indus'
         # Put them back together #
         df = pandas.concat([indus, house])

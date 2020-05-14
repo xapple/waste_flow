@@ -209,7 +209,7 @@ df = waste_ana.collapse_ind
 
 # Filter #
 result = df.query('country == "EU28"')
-result = result.query('year    == "2010"')
+result = result.query('year == "2010"')
 
 # Display #
 with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
