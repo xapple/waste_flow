@@ -56,3 +56,19 @@ When you import `waste_flow`, we will check the `$WASTE_FLOW_CACHE` environment 
 ## Features
 
 The first time you run `waste_flow`, it will automatically download the raw CSVs from the EUROSTAT website to disk and parse the resulting data. On later runs, `waste_flow` will simply retrieve this information directly from the disk. This means that the first time you execute the pipeline things will be noticeably slower: this is normal.
+
+## Source
+
+The two datasets used in this pipeline are available at the following addresses:
+
+* https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=env_wasgen&lang=en
+
+* https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=env_wastrt&lang=en
+
+These are obtained by starting at https://ec.europa.eu/eurostat/data/database
+ and following "Database by themes -> Environment -> Waste -> Waste treatment"
+
+The full name of the datasets are:
+
+* Generation of waste by waste category, hazardousness and NACE Rev. 2 activity (env_wasgen)                                  
+* Treatment of waste by waste category, hazardousness and waste management operations (env_wastrt)

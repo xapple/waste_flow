@@ -106,13 +106,41 @@ waste_trt_profile.to_widgets()
 # Filter
 
 ```python
+import pandas
 from waste_flow.zip_files import waste_gen, waste_trt
 with pandas.option_context('display.min_rows', 50, 'display.max_rows', 50):
     display(waste_gen.df)
 ```
 
 ```python
+import pandas
 from waste_flow.zip_files import waste_gen, waste_trt
 with pandas.option_context('display.min_rows', 50, 'display.max_rows', 50):
     display(waste_gen.df)
+```
+
+# Environement variables
+
+```python
+import os
+from pprint import pprint
+x = os.environ
+print(type(x))
+print(dir(x))
+print("------------")
+pprint(os.environ.__dict__)
+```
+
+```python
+import sys
+from pprint import pprint
+pprint(sys.path)
+```
+
+```python
+
+```
+
+```python
+
 ```

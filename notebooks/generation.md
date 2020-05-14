@@ -59,7 +59,7 @@ print(df.dtypes)
 ```python
 import pandas
 from waste_flow.generation import waste_gen
-with pandas.option_context('display.min_rows', 10, 'display.max_rows', 10):
+with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
     display(waste_gen.long_format)
 ```
 
@@ -135,35 +135,4 @@ with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
     display(result[0])
     display(result[1])
     display(result[2])
-```
-
-# Check waste spreading
-
-```python
-import pandas
-from waste_flow.generation import waste_gen
-
-with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
-    display(waste_gen.wide_format)
-    display(waste_gen.spread_waste)
-```
-
-```python
-display(waste_gen.spread_waste.dtypes)
-```
-
-# Check dry weight
-
-```python
-import pandas
-from waste_flow.generation import waste_gen
-
-with pandas.option_context('display.min_rows', 20, 'display.max_rows', 20):
-    display(waste_gen.dry_mass)
-    display(waste_gen.dry_long)
-
-```
-
-```python
-
 ```

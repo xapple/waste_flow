@@ -27,8 +27,13 @@ nace_names = pandas.read_csv(str(nace_names))
 waste_names = module_dir + 'extra_data_csv/waste_to_full_name.csv'
 waste_names = pandas.read_csv(str(waste_names))
 
+# Load treatment names #
+trt_names = module_dir + 'extra_data_csv/treatment_to_full_name.csv'
+trt_names = pandas.read_csv(str(trt_names))
+
 # Will be used to filter later #
 nace_selected   = list(nace_names['nace'])
+trt_selected    = list(trt_names['treatment'])
 wastes_selected = list(waste_names.query("category == 'eurostat'")['waste'])
 wastes_created  = list(waste_names.query("category != 'eurostat'")['waste'])
 

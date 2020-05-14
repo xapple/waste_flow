@@ -77,6 +77,15 @@ Typically you would run this file from a command line like this:
 #print(spread.by_nace['EP_HH'])
 
 ###############################################################################
-from waste_flow.generation import waste_gen
+#from waste_flow.generation import waste_gen
 #del waste_gen.spread_waste
-print(waste_gen.dry_mass)
+#print(waste_gen.dry_mass)
+
+###############################################################################
+#from waste_flow.analysis import waste_ana
+#del waste_ana.spread_waste
+#print(waste_ana.spread_waste)
+
+###############################################################################
+from waste_flow.analysis import waste_ana
+print(waste_ana.wide_format)
