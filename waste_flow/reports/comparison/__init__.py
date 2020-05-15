@@ -6,6 +6,11 @@ Written by Lucas Sinclair.
 
 JRC Biomass Project.
 Unit D1 Bioeconomy.
+
+Typically you can use this class like this:
+
+    >>> from waste_flow.reports.comparison import report
+    >>> print(report())
 """
 
 # Built-in modules #

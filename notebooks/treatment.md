@@ -211,7 +211,3 @@ print(df.value_counts())
 with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
     display(df)
 ```
-
-```python
-
-```

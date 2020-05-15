@@ -7,10 +7,10 @@ Written by Lucas Sinclair.
 JRC Biomass Project.
 Unit D1 Bioeconomy.
 
-Typically you can use this class this like:
+Typically you can use this class like this:
 
     >>> from waste_flow.generation import waste_gen
-    >>> print(waste_gen.dry_mass)
+    >>> print(waste_gen.wide_format)
 """
 
 # Built-in modules #

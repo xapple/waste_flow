@@ -7,7 +7,7 @@ Written by Lucas Sinclair.
 JRC Biomass Project.
 Unit D1 Bioeconomy.
 
-Typically you can use this class this like:
+Typically you can use this class like this:
 
     >>> from waste_flow.zip_files import waste_gen, waste_trt
     >>> print(waste_gen.cache_is_valid)
@@ -65,6 +65,9 @@ class ZipFile:
         df = df.applymap(colon_to_nan)
     """
 
+    base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/" \
+                 "BulkDownloadListing"
+
     def __init__(self, zip_cache_dir):
         # Record where the cache will be located on disk #
         self.cache_dir = zip_cache_dir
@@ -98,7 +101,8 @@ class ZipFile:
         # Check the cache #
         if not self.cache_is_valid:
             self.refresh_cache()
-            if not self.cache_is_valid: raise Exception("Error refreshing cache")
+            if not self.cache_is_valid:
+                raise Exception("Error refreshing cache")
         # Load the CSV #
         with gzip.open(self.zip_path) as csv_handle:
             text_mode = io.TextIOWrapper(csv_handle, encoding=self.encoding)
@@ -147,8 +151,8 @@ class ZipFile:
 class WasteGen(ZipFile):
 
     short_name = "env_wasgen"
-    long_name  = "Generation of waste by waste category, hazardousness and NACE Rev. 2 activity."
-    base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
+    long_name  = "Generation of waste by waste category, hazardousness and" \
+                 " NACE Rev. 2 activity."
     url_param  = "?file=data/env_wasgen.tsv.gz"
     zip_name   = "env_wasgen.tsv.gz"
     csv_name   = "env_wasgen.tsv"
@@ -159,8 +163,8 @@ class WasteGen(ZipFile):
 class WasteTrt(ZipFile):
 
     short_name = "env_wastrt"
-    long_name  = "Treatment of waste by waste category, hazardousness and waste management operations."
-    base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
+    long_name  = "Treatment of waste by waste category, hazardousness and" \
+                 " waste management operations."
     url_param  = "?file=data/env_wastrt.tsv.gz"
     zip_name   = "env_wastrt.tsv.gz"
     csv_name   = "env_wastrt.tsv"

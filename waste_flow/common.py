@@ -6,6 +6,11 @@ Written by Lucas Sinclair.
 
 JRC Biomass Project.
 Unit D1 Bioeconomy.
+
+Typically you can use this file like this:
+
+    >>> from waste_flow.common import waste_names
+    >>> print(waste_names)
 """
 
 # Built-in modules #
@@ -18,7 +23,7 @@ from waste_flow import module_dir
 # Third party modules #
 import pandas
 
-###############################################################################w
+###############################################################################
 # Load nace names #
 nace_names = module_dir + 'extra_data_csv/nace_to_full_name.csv'
 nace_names = pandas.read_csv(str(nace_names))

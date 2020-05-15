@@ -23,10 +23,10 @@ this_dir  = Path(os.path.dirname(os.path.abspath(file_name)) + '/')
 
 ###############################################################################
 class Header(Template):
-    """All the parameters to be rendered in the LaTeX header template"""
+    """All the parameters to be rendered in the LaTeX header template."""
     def image_path(self): return (this_dir + 'logo.png').unix_style
 
 ###############################################################################
 class Footer(Template):
-    """All the parameters to be rendered in the LaTeX footer template"""
+    """All the parameters to be rendered in the LaTeX footer template."""
     pass

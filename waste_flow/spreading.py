@@ -7,7 +7,7 @@ Written by Lucas Sinclair.
 JRC Biomass Project.
 Unit D1 Bioeconomy.
 
-Typically you can use this class this like:
+Typically you can use this class like this:
 
     >>> from waste_flow.spreading import spread
     >>> print(spread.by_nace)
@@ -26,17 +26,7 @@ from plumbing.cache import property_cached
 ###############################################################################
 class WasteSpreading:
 
-    def format_spread(self, df):
-        """Format a given dataframe."""
-        # Drop columns #
-        df = df.drop(columns=['nace'])
-        # Set index #
-        df = df.set_index('waste')
-        # Assume zero everywhere #
-        df = df.fillna(0)
-        # Return #
-        return df
-
+    # ----------------------------- Properties ------------------------------ #
     @property_cached
     def by_nace(self):
         """
@@ -65,6 +55,18 @@ class WasteSpreading:
         result = {k: self.format_spread(df) for k, df in result.items()}
         # Return #
         return result
+
+    # ------------------------------ Methods -------------------------------- #
+    def format_spread(self, df):
+        """Format a given dataframe."""
+        # Drop columns #
+        df = df.drop(columns=['nace'])
+        # Set index #
+        df = df.set_index('waste')
+        # Assume zero everywhere #
+        df = df.fillna(0)
+        # Return #
+        return df
 
 ###############################################################################
 # Create singleton #

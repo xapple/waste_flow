@@ -7,10 +7,10 @@ Written by Lucas Sinclair.
 JRC Biomass Project.
 Unit D1 Bioeconomy.
 
-Typically you can use this class this like:
+Typically you can use this class like this:
 
-    >>> from waste_flow.generation import waste_gen
-    >>> print(waste_gen.dry_mass)
+    >>> from waste_flow.analysis import waste_ana
+    >>> print(waste_ana.summary_recovered)
 """
 
 # Built-in modules #
@@ -79,8 +79,9 @@ class WasteAnalysis:
         waste categories. These categories have modified names and are divided
         into "household" categories and "industrial" categories.
 
-        In particular, we remove the municipal waste (W101) category and distribute
-        it in other categories according to specific breakdown proportions.
+        In particular, we remove the municipal waste (W101) category and
+        distribute it in other categories according to specific breakdown
+        proportions.
         All these proportions are described in "waste_spreading.csv".
 
         The municipal waste (W101) should be called as such because otherwise
@@ -187,9 +188,9 @@ class WasteAnalysis:
     @property_cached
     def summary_recovered(self):
         """
-        Produce a dataframe that summarizes the quantities of waste disposed and
-        recovered, for every waste category, in the household and industrial
-        categories.
+        Produce a dataframe that summarizes the quantities of waste disposed
+        and recovered, for every waste category, in the household and
+        industrial categories.
         """
         # Load #
         df = self.collapse_ind
@@ -201,11 +202,11 @@ class WasteAnalysis:
         # Only one level on the column index #
         df.columns = df.columns.droplevel()
         # Split into recovered and disposed #
-        recovery = list(trt_names[trt_names['category'] == 'recovery']['treatment'])
-        disposal = list(trt_names[trt_names['category'] == 'disposal']['treatment'])
+        recovery = trt_names[trt_names['category'] == 'recovery']['treatment']
+        disposal = trt_names[trt_names['category'] == 'disposal']['treatment']
         # Sum the treatment categories that belong #
-        df['recovery'] = sum(df[trt] for trt in recovery)
-        df['disposal'] = sum(df[trt] for trt in disposal)
+        df['recovery'] = sum(df[trt] for trt in list(recovery))
+        df['disposal'] = sum(df[trt] for trt in list(disposal))
         # Remove other columns #
         df = df.drop(columns=[trt for trt in trt_names['treatment']])
         # Add total #
@@ -215,7 +216,8 @@ class WasteAnalysis:
         # Remove lines that are all zeros #
         df = df.query('dry_mass != 0.0')
         # Reorder columns #
-        df = df.reindex(columns=['wet_mass', 'dry_mass', 'disposal', 'recovery'])
+        index = ['wet_mass', 'dry_mass', 'disposal', 'recovery']
+        df = df.reindex(columns=index)
         # Return #
         return df
 

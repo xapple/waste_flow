@@ -307,23 +307,3 @@ df = eu.summary_recovered.loc['2010']
 with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
     display(df)
 ```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```

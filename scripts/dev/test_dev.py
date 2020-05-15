@@ -7,7 +7,9 @@ Written by Lucas Sinclair.
 JRC Biomass Project.
 Unit D1 Bioeconomy.
 
-Development script to test some of the methods in `waste_flow`
+Development script to test some of the methods in `waste_flow`.
+This is mostly just scrap code. Seriously, please ignore this
+whole file.
 
 Typically you would run this file from a command line like this:
 
@@ -91,7 +93,7 @@ Typically you would run this file from a command line like this:
 #print(waste_ana.summary_recovered)
 
 ###############################################################################
-from waste_flow.country import countries
-eu = countries['EU28']
-df = eu.wide_format
+#from waste_flow.country import countries
+#eu = countries['EU28']
+#df = eu.wide_format
 

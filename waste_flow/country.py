@@ -6,6 +6,13 @@ Written by Lucas Sinclair.
 
 JRC Biomass Project.
 Unit D1 Bioeconomy.
+
+Typically you can use this class like this:
+
+    >>> from waste_flow.country import countries
+    >>> for country in countries.values():
+    >>>     print('**' + country.long_name + '**')
+    >>>     print(country.summary_recovered)
 """
 
 # Built-in modules #
@@ -51,7 +58,8 @@ class Country:
     @property
     def waste_gen(self):
         return self.get_a_df('waste_flow.generation.waste_gen',
-                             'wide_format', False)
+                             'wide_format',
+                             False)
 
     # ------------------------------ Methods -------------------------------- #
     def get_a_df(self, location, df_name, by_index=True):

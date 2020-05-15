@@ -7,10 +7,11 @@ Written by Lucas Sinclair.
 JRC Biomass Project.
 Unit D1 Bioeconomy.
 
-Typically you can use this class this like:
+Typically you can use this class like this:
 
-    >>> from waste_flow.outputs import outputs
-    >>> print(outputs.make_dry_mass())
+    >>> from waste_flow import outputs
+    >>> print(outputs.waste_breakdown())
+    >>> print(outputs.summary_recovered())
 """
 
 # Built-in modules #

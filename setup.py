@@ -12,6 +12,6 @@ setup(
         author_email     = 'lucas.sinclair@me.com',
         packages         = find_packages(),
         install_requires = ['pandas>=1.0.0', 'requests', 'numpy>=1.16', 'matplotlib',
-                            'autopaths>=1.3.6', 'plumbing>=2.6.9', 'pymarktex>=1.3.2'],
+                            'autopaths>=1.3.6', 'plumbing>=2.7.1', 'pymarktex>=1.3.2'],
         include_package_data = True,
 )

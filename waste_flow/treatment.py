@@ -7,10 +7,10 @@ Written by Lucas Sinclair.
 JRC Biomass Project.
 Unit D1 Bioeconomy.
 
-Typically you can use this class this like:
+Typically you can use this class like this:
 
     >>> from waste_flow.treatment import waste_trt
-    >>> print(waste_trt.df)
+    >>> print(waste_trt.normalized)
 """
 
 # Built-in modules #
