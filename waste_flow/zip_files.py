@@ -137,7 +137,7 @@ class ZipFile:
         # Return #
         return df
 
-    #--------------------------------- Cache ---------------------------------#
+    # -------------------------------- Cache -------------------------------- #
     @property
     def csv_cache_path(self):
         """Specify where on the file system we will pickle the property."""

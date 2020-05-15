@@ -19,7 +19,7 @@ Typically you can use this class this like:
 from waste_flow            import cache_dir
 from waste_flow.treatment  import waste_trt
 from waste_flow.generation import waste_gen
-from waste_flow.common     import waste_names
+from waste_flow.common     import waste_names, wastes_created
 from waste_flow.spreading  import spread
 
 # First party modules #
@@ -143,8 +143,8 @@ class WasteAnalysis:
     @property
     def collapse_ind(self):
         """
-        Sum all nace sectors together, keeping only the EP_HH
-        one as separate.
+        Sum all nace sectors together, keeping only the <EP_HH>
+        one as separate (and thus not summed).
         """
         # Load #
         df = self.dry_long
@@ -153,17 +153,16 @@ class WasteAnalysis:
         house = df[selector]
         indus = df[~selector]
         # Reset index #
-        indus  = indus.reset_index(drop=True)
-        house  = house.reset_index(drop=True)
+        indus = indus.reset_index(drop=True)
+        house = house.reset_index(drop=True)
         # Sum the industrial #
-        groups = indus.groupby(['country', 'year', 'waste', 'wst_oper'])
-        indus  = groups.aggregate({'kg_dry': 'sum'})
-        # Reset index #
-        indus  = indus.reset_index()
-        # Create a new artifical nace that is the sum of the others #
-        indus['nace_r2'] = 'indus'
+        groups = indus.groupby(['country', 'year', 'wst_oper', 'waste'])
+        summed = groups.aggregate({'kg_dry': 'sum'})
+        summed = summed.reset_index()
+        # Create a new artificial nace that is the sum of the others #
+        summed.insert(2, "nace_r2", "all_indus")
         # Put them back together #
-        df = pandas.concat([indus, house])
+        df = pandas.concat([summed, house])
         # Return #
         return df
 
@@ -180,10 +179,30 @@ class WasteAnalysis:
                      index   = ['country', 'year', 'nace_r2', 'wst_oper'],
                      columns = ['waste'],
                      values  = ['kg_dry'])
+        # Only one level on the column index #
+        df.columns = df.columns.droplevel()
+        # Order the waste categories #
+        df = df.reindex(columns=wastes_created)
+        # Order the nace activities #
+        df = df.sort_index(level=2, ascending=False)
         # Return #
         return df
 
-    #--------------------------------- Cache ---------------------------------#
+    # ----------------------------- Reporting ------------------------------- #
+    @property_cached
+    def summary_recovered(self):
+        """
+        Produce a dataframe that summarizes the quantities of waste disposed and
+        recovered, for every waste category, in the household and industrial
+        categories.
+        """
+        # Load #
+        df = self.wide_format
+        # Pivot #
+        # Return #
+        return df
+
+    # -------------------------------- Cache -------------------------------- #
     @property
     def cache_path(self):
         """Specify where on the file system we will pickle the property."""

@@ -216,16 +216,49 @@ with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
     display(result)
 ```
 
-```python
+# Collapse industrial wide
 
+```python
+# Custom number printing #
+import pandas
+pandas.options.display.float_format = '{:.0f}'.format
+
+# Import #
+import pandas
+from waste_flow.analysis import waste_ana
+
+# Process #
+df = waste_ana.wide_format
+
+# Filter #
+result = df.query('country == "EU28"')
+result = result.query('year == "2010"')
+
+# Display #
+with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
+    display(result)
 ```
 
-```python
-
-```
+# Test dropping levels
 
 ```python
+# Import #
+import pandas
+from waste_flow.analysis import waste_ana
 
+# Process #
+df = waste_ana.wide_format.copy()
+
+# Reorder #
+df = df.sort_index(level=2, ascending=False)
+
+# Filter #
+result = df.query('country == "EU28"')
+result = result.query('year == "2010"')
+
+# Display #
+with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
+    display(result)
 ```
 
 ```python
