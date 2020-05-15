@@ -10,13 +10,16 @@
 ~$*
 
 # IDE files #
-/.idea
-.spyproject
-.spyderproject
+/.idea/
+/.spyproject
+/.spyderproject
 
 # Distribution #
 /build/
 /dist/
+
+# Testing #
+/.pytest_cache/
 
 # Notebooks #
 .ipynb_checkpoints/
