@@ -72,3 +72,7 @@ The full name of the datasets are:
 
 * Generation of waste by waste category, hazardousness and NACE Rev. 2 activity (env_wasgen)                                  
 * Treatment of waste by waste category, hazardousness and waste management operations (env_wastrt)
+
+## Customizing
+
+The pipeline is flexible as the user can specify what coefficients they desire or even what custom waste categories they want to create. These input parameters are in the files under the `waste_flow/extra_data_xls` directory.

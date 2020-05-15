@@ -13,11 +13,11 @@ Unit D1 Bioeconomy.
 # Internal modules #
 from waste_flow         import cache_dir
 from waste_flow.country import all_countries
-from waste_flow.common  import nace_names
+from waste_flow.common  import nace_names, waste_names
 
 # First party modules #
-from plumbing.graphs.multiplot import Multiplot
-from plumbing.cache import property_cached
+from plumbing.graphs.multiplot   import Multiplot
+from plumbing.cache              import property_cached
 from plumbing.graphs.solo_legend import SoloLegend
 
 # Third party modules #
@@ -43,9 +43,8 @@ class GenByCountryViz:
     @property_cached
     def df(self):
         # Load #
-        df = self.country.dry_mass
+        df = self.country.waste_gen
         # Swap index levels #
-        df = df.reset_index()
         df = df.sort_values(['nace_r2', 'year'])
         df = df.set_index(['nace_r2', 'year'])
         # Return #
@@ -129,8 +128,8 @@ class GenCountryPlot(Multiplot):
 
         # Add the sector name as a title #
         for sector, axes in zip(self.batch, self.axes):
-            row  = nace_names.query('nace_r2 == @sector')
-            text = row.iloc[0]['description']
+            row  = nace_names.query('nace == @sector')
+            text = row.iloc[0]['full_name']
             if len(text) > 30: text = text[:30] + ' [...]'
             axes.text(0.05, 1.05, text, transform=axes.transAxes, ha="left", size=22)
 
@@ -155,15 +154,7 @@ class GenByCountryLegend(SoloLegend):
     @property_cached
     def label_to_color(self):
         """Mapping of each waste to type to colors."""
-        return {
-            "Paper and cardboard wastes":     'gray',
-            "Rubber wastes":                  'blue',
-            "Wood wastes":                    'brown',
-            "Textile wastes":                 'cyan',
-            "Animal and mixed food waste":    'pink',
-            "Vegetal wastes":                 'green',
-            "Animal feces urine and manure":  'yellow',
-        }
+        return dict(zip(waste_names['full_name'], self.name_to_color.values()))
 
     @property_cached
     def name_to_color(self):
@@ -175,6 +166,7 @@ class GenByCountryLegend(SoloLegend):
             'W091': 'pink',
             'W092': 'green',
             'W093': 'yellow',
+            'W101': 'black',
         }
 
 ###############################################################################

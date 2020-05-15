@@ -15,15 +15,15 @@ Typically you would run this file from a command line like this:
 """
 
 ###############################################################################
-from waste_flow.generation import waste_gen
-print(waste_gen.dry_mass)
+from waste_flow.analysis import waste_ana
+print(waste_ana.dry_mass)
 
 ###############################################################################
 from waste_flow.generation import waste_gen
 params = ("waste   == 'W073' & "
           "country == 'UK' & "
           "year    == '2008'")
-result = waste_gen.dry_long.query(params)
+result = waste_gen.long_format.query(params)
 print(result)
 
 ###############################################################################

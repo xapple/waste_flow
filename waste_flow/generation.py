@@ -75,6 +75,8 @@ class WasteGeneration:
                      index   = ['country', 'year', 'nace_r2'],
                      columns = ['waste'],
                      values  = ['tonnes'])
+        # Only one level on the column index #
+        df.columns = df.columns.droplevel()
         # Return #
         return df
 

@@ -44,7 +44,7 @@ class GenBySectorViz:
     @property_cached
     def df(self):
         # Load #
-        df = waste_gen.dry_mass
+        df = waste_gen.wide_format
         # Reset index #
         df = df.reset_index()
         # Filter #
@@ -151,4 +151,4 @@ class GenSectorPlot(Multiplot):
 
 ###############################################################################
 # Every sector has a several graphs (each graph has several subplots) #
-sectors = {s: GenBySectorViz(s) for s in nace_names['nace_r2']}
+sectors = {s: GenBySectorViz(s) for s in nace_names['nace']}

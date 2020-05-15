@@ -69,7 +69,7 @@ class ComparisonTemplate(ReportTemplate):
         result += str(ScaledFigure(graph   = legend,
                                    caption = caption,
                                    label   = 'wastes_legend',
-                                   width   = '14em'))
+                                   width   = '18em'))
         # Loop every country batch #
         for viz in countries.values():
             result += '\n--\n**%s**\n--\n\n' % viz.country.long_name
@@ -91,11 +91,12 @@ class ComparisonTemplate(ReportTemplate):
         result += str(ScaledFigure(graph   = legend,
                                    caption = caption,
                                    label   = 'wastes_legend',
-                                   width   = '14em'))
+                                   width   = '18em'))
         # Loop every country batch #
         for viz in sectors.values():
-            row  = nace_names.query('nace_r2 == @viz.sector')
-            text = row.iloc[0]['description']
+            row  = nace_names.query('nace == @viz.sector')
+            text = row.iloc[0]['full_name']
+            if len(text) > 60: text = text[:60] + ' [...]'
             result += '\n--\n**%s**\n--\n\n' % text
             for graph in viz.all_graphs:
                 result += str(BareFigure(graph=graph)) + '\n\n'

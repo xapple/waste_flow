@@ -48,8 +48,13 @@ class Country:
         return self.get_a_df('waste_flow.analysis.waste_ana',
                              'summary_recovered')
 
+    @property
+    def waste_gen(self):
+        return self.get_a_df('waste_flow.generation.waste_gen',
+                             'wide_format', False)
+
     # ------------------------------ Methods -------------------------------- #
-    def get_a_df(self, location, df_name):
+    def get_a_df(self, location, df_name, by_index=True):
         """
         Return rows that concern this country only for any
         given dataframe passed in the location argument.
@@ -63,9 +68,11 @@ class Country:
         # Load #
         df = getattr(obj, df_name)
         # Select rows for current country #
-        df = df.loc[[self.code]].copy()
+        if by_index: df = df.loc[[self.code]].copy()
+        else:        df = df.query("country == '%s'" % self.code)
         # We don't need the country column anymore #
-        df = df.droplevel(0)
+        if by_index: df = df.droplevel(0)
+        else:        df = df.reset_index().drop(columns=['country'])
         # Return #
         return df
 
