@@ -16,6 +16,8 @@ Typically you can use this class this like:
 # Built-in modules #
 
 # Internal modules #
+from waste_flow import cache_dir
+from waste_flow.country import all_countries
 
 # First party modules #
 from plumbing.xls_tables import MultiDataFrameXLS
@@ -26,32 +28,32 @@ from plumbing.xls_tables import MultiDataFrameXLS
 class Outputs:
     """Takes care of creating some files that contain outputs."""
 
-    def make_dry_mass(self, path):
+    # ----------------------------- Properties ------------------------------ #
+    @property
+    def path(self):
+        """Specify where on the file system we will pickle the property."""
+        return cache_dir + 'outputs/' + self.short_name + '.xlsx'
+
+    # ------------------------------ Methods -------------------------------- #
+    def __call__(self):
         """
         Create an excel file with one sheet per country.
-        And containing the dry mass tables for each year.
         """
-        # Load #
-        from waste_flow.generation import waste_gen
-        df = waste_gen.dry_mass
-        # Remove index #
-        df = df.reset_index()
-        # Group per country #
-        groups = df.groupby(['country'])
         # Write each country #
-        sheet_to_dfs = {k: self.one_country(k,v) for k,v in groups}
+        sheet_to_dfs = {c.code: self.one_country(c) for c in all_countries}
         # Save #
-        multi_xls = MultiDataFrameXLS(sheet_to_dfs, path)
+        multi_xls = MultiDataFrameXLS(sheet_to_dfs, self.path)
         # Do it #
         return multi_xls()
 
-    def one_country(self, code, df):
+    def one_country(self, country):
         """
         Create an excel sheet with every year that a
         given country has.
         """
-        # Drop the country column #
-        df = df.drop('country', axis=1)
+        # Get the dataframe #
+        df = getattr(country, self.df_name)
+        df = df.reset_index()
         # Group by year #
         groups = df.groupby('year')
         # Initialize #
@@ -62,17 +64,17 @@ class Outputs:
             table = table.drop('year', axis=1)
             table = table.set_index('nace_r2')
             # Main title #
-            title = "YEAR %s -- dry mass in kg -- W101 is spread out" % year
-            # Other labels #
+            title = "YEAR %s" % year
+            # Other optional labels #
             sheet = {
                 'dataframe': table,
                 'title':     title,
-                'x_title':   "Waste",
-                'y_title':   "Activity",
-                'x_label':   None,
-                'y_label':   None,
-                'x_extra':   None,
-                'y_extra':   None,
+                'x_title':   getattr(self, 'x_title', None),
+                'y_title':   getattr(self, 'y_title', None),
+                'x_label':   getattr(self, 'x_label', None),
+                'y_label':   getattr(self, 'y_label', None),
+                'x_extra':   getattr(self, 'x_extra', None),
+                'y_extra':   getattr(self, 'y_extra', None),
             }
             # Append #
             all_dfs.append(sheet)
@@ -80,5 +82,19 @@ class Outputs:
         return all_dfs
 
 ###############################################################################
-# Create singleton #
-outputs = Outputs()
+class WasteBreakdown(Outputs):
+    short_name = "waste_breakdown"
+    df_name    = "wide_format"
+    x_title    = "Custom Waste Categories (values are kilograms)"
+    y_title    = "Nace"
+
+class SummaryRecovered(Outputs):
+    short_name = "summary_recovered"
+    df_name    = "summary_recovered"
+    x_title    = "Summary (values are kilograms)"
+    y_title    = "Nace"
+
+###############################################################################
+# Create singletons #
+waste_breakdown   = WasteBreakdown()
+summary_recovered = SummaryRecovered()

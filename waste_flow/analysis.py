@@ -19,7 +19,7 @@ Typically you can use this class this like:
 from waste_flow            import cache_dir
 from waste_flow.treatment  import waste_trt
 from waste_flow.generation import waste_gen
-from waste_flow.common     import waste_names, wastes_created
+from waste_flow.common     import trt_names, wastes_created, wet_coefs
 from waste_flow.spreading  import spread
 
 # First party modules #
@@ -65,7 +65,7 @@ class WasteAnalysis:
         # Load #
         df = self.combined
         # Process #
-        df['kg'] =  df['tonnes'] * df['frac'] * 1000
+        df['kg'] = df['tonnes'] * df['frac'] * 1000
         # Drop #
         df = df.drop(columns=['tonnes', 'frac'])
         # Return #
@@ -115,11 +115,6 @@ class WasteAnalysis:
         Convert all the 'wet tonnes' values to their dry weight
         equivalent.
         """
-        # Remove the original waste categories #
-        wet_coefs = waste_names.query("category != 'eurostat'")
-        wet_coefs = wet_coefs.reset_index(drop=True)
-        # Load wet coefficients by waste #
-        wet_coefs = wet_coefs.set_index('waste')['wet_fraction']
         # Compute dry coefficients #
         dry_coef = 1 - wet_coefs
         # Multiply for dry mass #
@@ -197,8 +192,30 @@ class WasteAnalysis:
         categories.
         """
         # Load #
-        df = self.wide_format
+        df = self.collapse_ind
         # Pivot #
+        df = df.pipe(pandas.pivot_table,
+                     index   = ['country', 'year', 'nace_r2', 'waste'],
+                     columns = ['wst_oper'],
+                     values  = ['kg_dry'])
+        # Only one level on the column index #
+        df.columns = df.columns.droplevel()
+        # Split into recovered and disposed #
+        recovery = list(trt_names[trt_names['category'] == 'recovery']['treatment'])
+        disposal = list(trt_names[trt_names['category'] == 'disposal']['treatment'])
+        # Sum the treatment categories that belong #
+        df['recovery'] = sum(df[trt] for trt in recovery)
+        df['disposal'] = sum(df[trt] for trt in disposal)
+        # Remove other columns #
+        df = df.drop(columns=[trt for trt in trt_names['treatment']])
+        # Add total #
+        df['dry_mass'] = df.sum(axis=1)
+        # Add wet mass #
+        df['wet_mass'] = df['dry_mass'] / (1 - wet_coefs)
+        # Remove lines that are all zeros #
+        df = df.query('dry_mass != 0.0')
+        # Reorder columns #
+        df = df.reindex(columns=['wet_mass', 'dry_mass', 'disposal', 'recovery'])
         # Return #
         return df
 

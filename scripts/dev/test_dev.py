@@ -11,7 +11,7 @@ Development script to test some of the methods in `waste_flow`
 
 Typically you would run this file from a command line like this:
 
-     ipython3 -i -- ~/deploy/waste_flow/scripts/test_dev.py
+     ipython3 -i -- ~/deploy/waste_flow/scripts/dev/test_dev.py
 """
 
 # Built-in modules #
@@ -87,5 +87,11 @@ Typically you would run this file from a command line like this:
 #print(waste_ana.spread_waste)
 
 ###############################################################################
-from waste_flow.analysis import waste_ana
-print(waste_ana.wide_format)
+#from waste_flow.analysis import waste_ana
+#print(waste_ana.summary_recovered)
+
+###############################################################################
+from waste_flow.country import countries
+eu = countries['EU28']
+df = eu.wide_format
+

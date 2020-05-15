@@ -261,6 +261,69 @@ with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
     display(result)
 ```
 
+# Reporting recovered
+
+```python
+# Custom number printing #
+import pandas
+pandas.options.display.float_format = '{:.0f}'.format
+
+# Import #
+import pandas
+from waste_flow.analysis import waste_ana
+
+# Process #
+df = waste_ana.summary_recovered.copy()
+
+# Filter #
+result = df.query('country == "EU28"')
+result = result.query('year == "2010"')
+
+# Display #
+with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
+    display(result)
+```
+
+# Check Country object 
+
+```python
+# Custom page width #
+from IPython.core.display import display, HTML
+display(HTML("<style>.container { width:100% !important; }</style>"))
+
+# Custom number printing #
+import pandas
+pandas.options.display.float_format = '{:.0f}'.format
+
+# Import #
+import pandas
+from waste_flow.country import countries
+
+# Process #
+eu = countries['EU28']
+df = eu.summary_recovered.loc['2010']
+
+# Display #
+with pandas.option_context('display.min_rows', 100, 'display.max_rows', 100):
+    display(df)
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
 ```python
 
 ```

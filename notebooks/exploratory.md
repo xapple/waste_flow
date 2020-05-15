@@ -125,20 +125,16 @@ with pandas.option_context('display.min_rows', 50, 'display.max_rows', 50):
 import os
 from pprint import pprint
 x = os.environ
-print(type(x))
-print(dir(x))
-print("------------")
-pprint(os.environ.__dict__)
+#print(type(x))
+#print(dir(x))
+#print("------------")
+#pprint(os.environ.__dict__)
 ```
 
 ```python
 import sys
 from pprint import pprint
 pprint(sys.path)
-```
-
-```python
-
 ```
 
 ```python

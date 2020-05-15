@@ -41,6 +41,15 @@ wastes_created  = list(waste_names.query("category != 'eurostat'")['waste'])
 spread_coefs = module_dir + 'extra_data_csv/waste_spreading.csv'
 spread_coefs = pandas.read_csv(str(spread_coefs))
 
+# Load dry to wet coefficients #
+wet_coefs = waste_names.query("category != 'eurostat'")
+wet_coefs = wet_coefs.reset_index(drop=True)
+wet_coefs = wet_coefs.set_index('waste')['wet_fraction']
+
+# Load country codes #
+country_codes = module_dir + 'extra_data_csv/foastat_countries.csv'
+country_codes = pandas.read_csv(str(country_codes))
+
 ###############################################################################
 # Load names that appear in the other dataframe #
 orig_w_names = set(spread_coefs['waste'])
