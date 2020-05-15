@@ -29,7 +29,6 @@ print(result)
 ###############################################################################
 from waste_flow.viz.gen_by_country import legend
 print(legend.plot(rerun=True))
-
 from waste_flow.viz.gen_by_country import countries
 for gen_viz in countries.values():
     print(gen_viz.plot(rerun=True))

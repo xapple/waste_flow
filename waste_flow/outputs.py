@@ -63,19 +63,13 @@ class Outputs:
             # Drop the year column #
             table = table.drop('year', axis=1)
             table = table.set_index('nace_r2')
-            # Main title #
-            title = "YEAR %s" % year
-            # Other optional labels #
-            sheet = {
-                'dataframe': table,
-                'title':     title,
-                'x_title':   getattr(self, 'x_title', None),
-                'y_title':   getattr(self, 'y_title', None),
-                'x_label':   getattr(self, 'x_label', None),
-                'y_label':   getattr(self, 'y_label', None),
-                'x_extra':   getattr(self, 'x_extra', None),
-                'y_extra':   getattr(self, 'y_extra', None),
-            }
+            # Table and title #
+            sheet = {'dataframe': table, 'title': "YEAR %s" % year}
+            # Add other optional labels #
+            labels = ['x_title', 'y_title',
+                      'x_label', 'y_label',
+                      'x_extra', 'y_extra']
+            for label in labels: sheet[label] = getattr(self, label, None)
             # Append #
             all_dfs.append(sheet)
         # Return #

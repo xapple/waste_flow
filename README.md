@@ -29,8 +29,8 @@ Bellow are some examples to illustrate the various ways there are to use this pa
 
 To retrieve the large dataframe with dry mass for all years and all countries you can do the following:
 
-    from waste_flow.generation import waste_gen
-    print(waste_gen.dry_mass)
+    from waste_flow.analysis import waste_ana
+    print(waste_ana.dry_mass)
 
 If you just want to see how much rubber waste did the UK generate in 2008, you can do the following:
 
@@ -38,14 +38,14 @@ If you just want to see how much rubber waste did the UK generate in 2008, you c
     params = ("waste   == 'W073' & "
               "country == 'UK' & "
               "year    == '2008'")
-    result = waste_gen.dry_long.query(params)
+    result = waste_gen.long_format.query(params)
     print(result)
 
-To generate the waste generation plots do the following:
+To create the waste generation plots do the following:
 
-    from waste_flow.viz.gen import legend
+    from waste_flow.viz.gen_by_country import legend
     print(legend.plot(rerun=True))
-    from waste_flow.viz.gen import countries
+    from waste_flow.viz.gen_by_country import countries
     for gen_viz in countries.values():
         print(gen_viz.plot(rerun=True))
 
