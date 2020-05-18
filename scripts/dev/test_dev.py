@@ -84,9 +84,9 @@ Typically you would run this file from a command line like this:
 #print(waste_gen.dry_mass)
 
 ###############################################################################
-#from waste_flow.analysis import waste_ana
-#del waste_ana.spread_waste
-#print(waste_ana.spread_waste)
+from waste_flow.analysis import waste_ana
+del waste_ana.spread_waste
+print(waste_ana.spread_waste)
 
 ###############################################################################
 #from waste_flow.analysis import waste_ana

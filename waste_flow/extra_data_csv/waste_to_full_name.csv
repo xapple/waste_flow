@@ -15,7 +15,7 @@ W091_ind,Animal and mixed food waste,industrial,0.7
 W092_ind,Vegetal wastes,industrial,0.6
 W093_ind,"Animal feces, urine and manure",industrial,0.8
 W072_hh,Paper and cardboard wastes,household,0.06
-W075_hh,Untreated wood,household,0.02
+W075_hh,Untreated wood,household,0.2
 W091_hh,Food waste,household,0.7
 W092_hh,Green waste,household,0.6
 W7376_hh,"Textiles, leather and rubber",household,0.08
