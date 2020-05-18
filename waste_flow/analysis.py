@@ -214,7 +214,7 @@ class WasteAnalysis:
         # Add wet mass #
         df['wet_mass'] = df['dry_mass'] / (1 - wet_coefs)
         # Remove lines that are all zeros #
-        df = df.query('dry_mass != 0.0')
+        #df = df.query('dry_mass != 0.0')
         # Reorder columns #
         index = ['wet_mass', 'dry_mass', 'disposal', 'recovery']
         df = df.reindex(columns=index)

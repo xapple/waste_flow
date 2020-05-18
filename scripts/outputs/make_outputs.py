@@ -15,6 +15,9 @@ Typically you would run this file from a command line like this:
 """
 
 ###############################################################################
+from waste_flow.analysis import waste_ana
+del waste_ana.spread_waste
+
 from waste_flow.outputs import waste_breakdown, summary_recovered
 waste_breakdown()
 summary_recovered()

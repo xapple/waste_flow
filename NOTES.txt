@@ -95,3 +95,13 @@ More questions:
 * Disposal categories refer to original waste categories, so how does waste destinations mix with the new categories created?
 
 * Rubber and textiles natural? Bio and non-bio parts?
+
+------------------------
+
+New graphs:
+
+2 graphs: Separated between Household and Industrial
+X axis time
+Y axis Megatones
+Values: dry_mass as seen in summary.
+Per country.
