@@ -93,4 +93,7 @@ For instance here is a series of graphs comparing the total reported waste gener
 ![Waste generated graph part 7](showcase/ME_MK_MT_NL.svg?sanitize=true "Waste generated graph part 7")
 ![Waste generated graph part 8](showcase/NO_PL_PT_RO.svg?sanitize=true "Waste generated graph part 8")
 ![Waste generated graph part 9](showcase/RS_SE_SI_SK.svg?sanitize=true "Waste generated graph part 9")
-![Waste generated graph legend](showcase/legend.svg?sanitize=true "Waste generated graph legend")
+
+<p align="center">
+<img height="130" src="showcase/legend.svg?sanitize=true">
+</p>
