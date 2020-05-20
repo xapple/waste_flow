@@ -95,5 +95,5 @@ For instance here is a series of graphs comparing the total reported waste gener
 ![Waste generated graph part 9](showcase/RS_SE_SI_SK.svg?sanitize=true "Waste generated graph part 9")
 
 <p align="center">
-<img height="130" src="showcase/legend.svg?sanitize=true">
+<img height="200" src="showcase/legend.svg?sanitize=true">
 </p>
