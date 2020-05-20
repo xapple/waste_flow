@@ -65,8 +65,7 @@ The two datasets used in this pipeline are available at the following addresses:
 
 * https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=env_wastrt&lang=en
 
-These are obtained by starting at https://ec.europa.eu/eurostat/data/database
- and following "Database by themes -> Environment -> Waste -> Waste treatment"
+These are obtained by starting at https://ec.europa.eu/eurostat/data/database and following "Database by themes -> Environment -> Waste -> Waste treatment"
 
 The full name of the datasets are:
 

@@ -100,8 +100,9 @@ More questions:
 
 New graphs:
 
-2 graphs: Separated between Household and Industrial
-X axis time
-Y axis Megatones
-Values: dry_mass as seen in summary.
-Per country.
+X axis: time
+Y axis: mass
+Values: dry_mass as seen in summary output.
+
+Separated by country.
+Separated between Household and Industrial

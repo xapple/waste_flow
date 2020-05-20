@@ -64,4 +64,9 @@ new_w_names  = set(spread_coefs.columns) - {'waste', 'nace'}
 assert orig_w_names == set(wastes_created)
 assert new_w_names  == set(wastes_selected)
 
-
+###############################################################################
+# Split in two #
+waste_names_ind = [w for w in waste_names['waste'] if w.endswith('_ind')]
+waste_names_hh  = [w for w in waste_names['waste'] if w.endswith('_hh')]
+waste_names_ind = waste_names.query("waste in @waste_names_ind")
+waste_names_hh  = waste_names.query("waste in @waste_names_hh")

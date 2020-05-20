@@ -4,7 +4,11 @@ Comparison report
 
 General information
 -------------------
-This is a comparison report that can include information from several countries.
+`waste_flow` is a python package for retrieving and analyzing data concerning the waste management of European countries.
+
+This is a comparison report includes information from several countries.
+
+The countries are: 'AT' 'BA' 'BE' 'BG' 'CY' 'CZ' 'DE' 'DK' 'EE' 'EL' 'ES' 'FI' 'FR' 'HR' 'HU' 'IE' 'IS' 'IT' 'LI' 'LT' 'LU' 'LV' 'ME' 'MK' 'MT' 'NL' 'NO' 'PL' 'PT' 'RO' 'RS' 'SE' 'SI' 'SK' 'UK' as well as 'EU27_2020' 'EU28' which represent aggregates.
 
 
 Processing
@@ -29,14 +33,21 @@ Processing
 Data source
 -----------
 
-The following visualizations are created by downloading the following file from the eurostat website.
+The following visualizations are created by downloading the following files from the eurostat website.
 
     short_name = "env_wasgen"
     long_name  = "Generation of waste by waste category, hazardousness and NACE Rev. 2 activity."
     base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
     url_param  = "?file=data/env_wasgen.tsv.gz"
 
-And parsing it as a `pandas.DataFrame` object.
+    short_name = "env_wastrt"
+    long_name  = "Treatment of waste by waste category, hazardousness and waste management operations."
+    base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing"
+    url_param  = "?file=data/env_wastrt.tsv.gz"
+
+And parsing them as `pandas.DataFrame` objects.
+
+These are obtained by starting at https://ec.europa.eu/eurostat/data/database and following "Database by themes -> Environment -> Waste -> Waste treatment".
 
 
 Processing
@@ -44,26 +55,63 @@ Processing
 
 The data was filtered for the keeping the `Units='T'` and `hazard='HAZ_NHAZ'` entries only.
 
-Also, only certain waste categories and nace categories of interest were kept.
+Next, only certain waste categories and nace categories of interest were kept.
 
-Next, some countries were incomplete and were discarded: AL, XK, TR
+Also, some countries were incomplete and were discarded: AL, XK, TR
 
-Finally, the values are in wet tonnes.
+Then the generation and treatment were joined and custom waste categories created by spreading the existing eurostat categories.
+
+Specifically the municipal waste category (W101) is entirely removed and part of it is spread out within the other categories based on some coefficients.
+
+The values are subsequently converted to wet kilograms based on coefficients.
+
+
+Customizing
+-----------
+
+The pipeline is flexible as the user can specify what coefficients they desire or even what custom waste categories they want to create. These input parameters are in the files under the `waste_flow/extra_data_xls` directory.
+
+The configuration files in excel format are here:
+
+<https://github.com/xapple/waste_flow/tree/master/waste_flow/extra_data_xls>
+
+Then they get automatically converted to CSV here:
+
+<https://github.com/xapple/waste_flow/tree/master/waste_flow/extra_data_csv>
+
+
+Summary graphs for the industrial sector
+----------------------------------------
+
+{{summary_indus}}
 
 \pagebreak
 
 
+Summary graphs for the household sector
+---------------------------------------
+
+{{summary_house}}
+
+\pagebreak
+
+
+Original waste generation by sector
+-----------------------------------
+Here we look at the `env_wasgen` dataset only in its unprocessed form. Values are in wet tonnes.
+
+One can inspect individual nace categories, before they are aggregated.
+
+{{waste_gen_by_sector}}
+
+\pagebreak
+
+
+<!--
 Waste generation by countries
 -----------------------------
 
 {{waste_gen_by_country}}
 
 \pagebreak
-
-
-Waste generation by sector
---------------------------
-
-{{waste_gen_by_sector}}
-
-\pagebreak
+-->

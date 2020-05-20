@@ -96,7 +96,7 @@ class ComparisonTemplate(ReportTemplate):
         result += str(ScaledFigure(graph   = legend,
                                    caption = caption,
                                    label   = 'wastes_legend',
-                                   width   = '18em'))
+                                   width   = '20em'))
         # Loop every country batch #
         for viz in sectors.values():
             row  = nace_names.query('nace == @viz.sector')
@@ -105,6 +105,50 @@ class ComparisonTemplate(ReportTemplate):
             result += '\n--\n**%s**\n--\n\n' % text
             for graph in viz.all_graphs:
                 result += str(BareFigure(graph=graph)) + '\n\n'
+        # Return #
+        return result
+
+    #----------------------------- Summary IND -------------------------------#
+    def summary_indus(self):
+        # Import #
+        from waste_flow.viz.summary import countries_ind, legend_ind
+        # Initialize #
+        result = ""
+        # Add the legend #
+        result += str(ScaledFigure(graph   = legend_ind,
+                                   caption = "Legend for industrial activities.",
+                                   label   = 'industrial_legend',
+                                   width   = '21em'))
+        # Loop every country batch #
+        for viz in countries_ind.values():
+            if len(viz.df) == 0: continue
+            caption = "Industrial waste in %s." % viz.country.long_name
+            result += str(ScaledFigure(graph   = viz,
+                                       caption = caption,
+                                       label   = viz.short_name,
+                                       width   = '40em'))
+        # Return #
+        return result
+
+    #----------------------------- Summary EP_HH ------------------------------#
+    def summary_house(self):
+        # Import #
+        from waste_flow.viz.summary import countries_hh, legend_hh
+        # Initialize #
+        result = ""
+        # Add the legend #
+        result += str(ScaledFigure(graph   = legend_hh,
+                                   caption = "Legend for household activities.",
+                                   label   = 'household_legend',
+                                   width   = '30em'))
+        # Loop every country batch #
+        for viz in countries_hh.values():
+            if len(viz.df) == 0: continue
+            caption = "Household waste in %s." % viz.country.long_name
+            result += str(ScaledFigure(graph   = viz,
+                                       caption = caption,
+                                       label   = viz.short_name,
+                                       width   = '40em'))
         # Return #
         return result
 

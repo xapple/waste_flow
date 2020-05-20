@@ -136,3 +136,26 @@ import sys
 from pprint import pprint
 pprint(sys.path)
 ```
+
+# Check BA
+
+```python
+import pandas
+from waste_flow.generation import waste_gen
+params = "country == 'BA' & year == '2012'"
+result = waste_gen.long_format.query(params)
+
+from waste_flow.analysis import waste_ana
+result = waste_ana.spread_waste.query(params)
+
+with pandas.option_context('display.min_rows', 1000, 'display.max_rows', 1000):
+    display(result)
+```
+
+```python
+
+```
+
+```python
+
+```

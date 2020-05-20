@@ -59,11 +59,11 @@ class GenBySectorViz:
     @property_cached
     def all_graphs(self):
         # Get all countries #
-        countries = self.df.index.levels[0]
+        country_names = self.df.index.levels[0]
         # Sort sectors into batches of a given size #
         size    = GenSectorPlot.n_cols
-        count   = len(countries)
-        batches = [countries[i:i + size] for i in range(0, count, size)]
+        count   = len(country_names)
+        batches = [country_names[i:i + size] for i in range(0, count, size)]
         # One graph per sector #
         result = [GenSectorPlot(self, batch) for batch in batches]
         # Return #
@@ -81,7 +81,7 @@ class GenSectorPlot(Multiplot):
 
     # Labels for axes #
     label_x = 'Year'
-    label_y = 'Dry mass in kilograms'
+    label_y = 'Wet mass in tonnes'
 
     # Size of grid #
     n_rows = 1
