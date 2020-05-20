@@ -75,3 +75,22 @@ The full name of the datasets are:
 ## Customizing
 
 The pipeline is flexible as the user can specify what coefficients they desire or even what custom waste categories they want to create. These input parameters are in the files under the `waste_flow/extra_data_xls` directory.
+
+## Visualizations
+
+The `waste_flow` package can also generate several types of plots that enable the user to compare and visualize the data.
+
+For instance here is a series of graphs comparing the total reported waste generated in wet tonnes between european countries for the category:
+
+##### "Manufacture of chemical, pharmaceutical, rubber and plastic products"
+
+![Waste generated graph part 1](showcase/AT_BA_BE_BG.svg?sanitize=true "Waste generated graph part 1")
+![Waste generated graph part 2](showcase/CY_CZ_DE_DK.svg?sanitize=true "Waste generated graph part 2")
+![Waste generated graph part 3](showcase/EE_EL_ES_EU27_2020.svg?sanitize=true "Waste generated graph part 3")
+![Waste generated graph part 4](showcase/EU28_FI_FR_HR.svg?sanitize=true "Waste generated graph part 4")
+![Waste generated graph part 5](showcase/HU_IE_IS_IT.svg?sanitize=true "Waste generated graph part 5")
+![Waste generated graph part 6](showcase/LI_LT_LU_LV.svg?sanitize=true "Waste generated graph part 6")
+![Waste generated graph part 7](showcase/ME_MK_MT_NL.svg?sanitize=true "Waste generated graph part 7")
+![Waste generated graph part 8](showcase/NO_PL_PT_RO.svg?sanitize=true "Waste generated graph part 8")
+![Waste generated graph part 9](showcase/RS_SE_SI_SK.svg?sanitize=true "Waste generated graph part 9")
+![Waste generated graph legend](showcase/legend.svg?sanitize=true "Waste generated graph legend")
