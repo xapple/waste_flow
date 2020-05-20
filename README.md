@@ -80,7 +80,7 @@ The pipeline is flexible as the user can specify what coefficients they desire o
 
 The `waste_flow` package can also generate several types of plots that enable the user to compare and visualize the data.
 
-For instance here is a series of graphs comparing the total reported waste generated in wet tonnes between european countries for the category:
+For instance here is a series of graphs comparing the total reported waste generated in wet tonnes between european countries for the nace category `C20-C22`. 
 
 ##### "Manufacture of chemical, pharmaceutical, rubber and plastic products"
 
