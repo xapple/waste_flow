@@ -1,4 +1,4 @@
-# `waste_flow` version 1.1.8
+# `waste_flow` version 1.2.0
 
 `waste_flow` is a python package for retrieving and analyzing data concerning the waste management of European countries.
 
