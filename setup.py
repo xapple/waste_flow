@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 setup(
         name             = 'waste_flow',
@@ -8,7 +8,7 @@ setup(
         url              = 'http://github.com/xapple/waste_flow/',
         author           = 'Lucas Sinclair',
         author_email     = 'lucas.sinclair@me.com',
-        packages         = find_packages(),
+        packages         = find_namespace_packages(),
         install_requires = ['autopaths>=1.4.0', 'plumbing>=2.7.9', 'pymarktex>=1.3.8'
                             'pandas>=1.0.0', 'numpy>=1.16', 'requests', 'matplotlib'],
         long_description = open('README.md').read(),
