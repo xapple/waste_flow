@@ -98,13 +98,13 @@ class WasteAnalysis:
 
     @staticmethod
     def spreader(country, year, treatment, nace, subdf):
-        # Load the coeffs #
-        coeffs  = spread.by_nace[nace]
+        # Load the coefs #
+        coefs  = spread.by_nace[nace]
         # Multiply #
         wastes  = subdf.set_index('waste')['kg']
-        product = coeffs * wastes
+        product = coefs * wastes
         # Replace some NaNs with zeros #
-        product[coeffs == 0.0] = 0.0
+        product[coefs == 0.0] = 0.0
         # But otherwise keep NaNs #
         summed  = product.sum(axis=1, skipna=False)
         # Return #
@@ -228,5 +228,5 @@ class WasteAnalysis:
         return cache_dir + 'dataframes/' + 'waste_spread.pickle'
 
 ###############################################################################
-# Create singleton #
+# Create a singleton #
 waste_ana = WasteAnalysis()
