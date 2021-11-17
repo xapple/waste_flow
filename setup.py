@@ -22,7 +22,7 @@ setup(
     author_email     = 'lucas.sinclair@me.com',
     packages         = find_namespace_packages(),
         install_requires = ['autopaths>=1.5.9', 'plumbing>=2.11.1',
-                            'pymarktex>=1.5.7' 'pandas', 'numpy',
+                            'pymarktex>=1.5.7', 'pandas', 'numpy',
                             'pytest', 'requests', 'matplotlib'],
     python_requires  = ">=3.6",
     long_description = readme,
