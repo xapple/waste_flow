@@ -32,14 +32,14 @@ def test_package_import():
 
 ###############################################################################
 # -------------------------------- Download --------------------------------- #
-@pytest.mark.skip(reason="Takes too long to download."
-                         "Don't want to spam eurostat.")
+@pytest.mark.skip(reason="Takes too long to download. We don't want to spam"
+                         " eurostat and get our IP banned.")
 def test_gen_download():
     from waste_flow.zip_files import waste_gen
     return waste_gen.refresh_cache()
 
-@pytest.mark.skip(reason="Takes too long to download."
-                         "Don't want to spam eurostat.")
+@pytest.mark.skip(reason="Takes too long to download. We don't want to spam"
+                         " eurostat and get our IP banned.")
 def test_trt_download():
     from waste_flow.zip_files import waste_trt
     return waste_trt.refresh_cache()
