@@ -11,7 +11,7 @@ Development script to test the usage examples included in the README.
 
 Typically you would run this file from a command line like this:
 
-     ipython3 -i -- ~/deploy/waste_flow/scripts/dev/usage.py
+     ipython3 -i -- ~/deploy/waste_flow/scripts/docs/run_readme_examples.py
 """
 
 ###############################################################################

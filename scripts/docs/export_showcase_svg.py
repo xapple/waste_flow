@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+/#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -12,7 +12,7 @@ and showcasing.
 
 Typically you would run this file from a command line like this:
 
-     ipython3 -i -- ~/repos/waste_flow/scripts/dev/export_showcase_svg.py
+     ipython3 -i -- ~/deploy/waste_flow/scripts/docs/export_showcase_svg.py
 """
 
 # Built-in modules #
@@ -33,7 +33,7 @@ from waste_flow.viz.gen_by_country import legend
 legend.formats = ('svg',)
 
 # Change output path #
-legend.base_dir = repos_dir + 'showcase/'
+legend.base_dir = repos_dir + 'docs/showcase_graphs/'
 
 # Plot #
 legend.plot(rerun=True)
@@ -49,7 +49,7 @@ viz = sectors['C20-C22']
 for g in viz.all_graphs: g.formats = ('svg',)
 
 # Change output paths #
-for g in viz.all_graphs: g.base_dir = repos_dir + 'showcase/'
+for g in viz.all_graphs: g.base_dir = repos_dir + 'docs/showcase_graphs/'
 
 # Change names #
 for g in viz.all_graphs: g.short_name = '_'.join(c for c in g.batch)

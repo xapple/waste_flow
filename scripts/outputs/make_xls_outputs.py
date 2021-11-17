@@ -11,7 +11,7 @@ Script to generate the output XLS files.
 
 Typically you would run this file from a command line like this:
 
-     ipython3 -i -- ~/deploy/waste_flow/scripts/outputs/make_outputs.py
+     ipython3 -i -- ~/deploy/waste_flow/scripts/outputs/make_xls_outputs.py
 """
 
 ###############################################################################

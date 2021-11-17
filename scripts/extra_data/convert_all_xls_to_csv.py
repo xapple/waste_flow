@@ -11,7 +11,7 @@ Script to convert the extra data excel files into their CSV equivalents.
 
 Typically you would run this file from a command line like this:
 
-     ipython3 -i -- ~/deploy/waste_flow/scripts/extra_data/xls_to_csv.py
+     ipython3 -i -- ~/deploy/waste_flow/scripts/extra_data/convert_all_xls_to_csv.py
 """
 
 # Built-in modules #
@@ -26,10 +26,12 @@ from waste_flow import module_dir
 
 ###############################################################################
 # Constants #
-convert_pairs = (('extra_data_xls/nace_to_full_name.xlsx',      'extra_data_csv/'),
-                 ('extra_data_xls/waste_to_full_name.xlsx',     'extra_data_csv/'),
-                 ('extra_data_xls/treatment_to_full_name.xlsx', 'extra_data_csv/'),
-                 ('extra_data_xls/waste_spreading.xlsx',        'extra_data_csv/'))
+convert_pairs = (
+    ('extra_data_xls/nace_to_full_name.xlsx',      'extra_data_csv/'),
+    ('extra_data_xls/waste_to_full_name.xlsx',     'extra_data_csv/'),
+    ('extra_data_xls/treatment_to_full_name.xlsx', 'extra_data_csv/'),
+    ('extra_data_xls/waste_spreading.xlsx',        'extra_data_csv/')
+)
 
 if __name__ == '__main__':
     for pair in convert_pairs:

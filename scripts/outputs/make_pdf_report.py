@@ -11,7 +11,7 @@ Script to generate the output PDF comparison report.
 
 Typically you would run this file from a command line like this:
 
-     ipython3 -i -- ~/deploy/waste_flow/scripts/outputs/make_report.py
+     ipython3 -i -- ~/deploy/waste_flow/scripts/outputs/make_pdf_report.py
 """
 
 ###############################################################################
