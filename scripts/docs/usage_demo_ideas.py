@@ -12,10 +12,6 @@ This is mostly just scrap code. Some of these snippets could be used
 as extra examples in the main `README.md` file.
 """
 
-# Built-in modules #
-
-# Third party modules #
-
 ###############################################################################
 from waste_flow.zip_files import waste_gen, waste_trt
 
@@ -38,10 +34,6 @@ print(waste_gen.df)
 print(waste_trt.df)
 
 ###############################################################################
-from waste_flow.outputs import outputs
-print(outputs.make_dry_mass('~/test/dry_mass.xlsx'))
-
-###############################################################################
 from waste_flow.viz.gen_by_country import legend
 print(legend.plot(rerun=True))
 
@@ -51,7 +43,7 @@ i = 0
 for gen_viz in all_gen_viz.values():
     print(gen_viz.plot(rerun=True))
     i += 1
-    if i > 199999999: break
+    if i > 3: break
 
 ###############################################################################
 from waste_flow.reports.comparison import ComparisonReport
@@ -102,25 +94,3 @@ from waste_flow.generation import waste_gen
 params = "country == 'BA'"
 result = waste_gen.long_format.query(params)
 print(result)
-
-###############################################################################
-from waste_flow.viz.summary import legend_ind, legend_hh
-print(legend_ind.plot(rerun=True))
-print(legend_hh.plot(rerun=True))
-
-from waste_flow.viz.gen_by_country import legend
-print(legend.plot(rerun=True))
-
-from waste_flow.viz.gen_by_sector import sectors
-for gen_viz in sectors.values():
-    print(gen_viz.plot(rerun=True))
-
-from waste_flow.viz.summary import countries_ind, countries_hh
-for gen_viz in countries_ind.values():
-    print(gen_viz.plot(rerun=True))
-for gen_viz in countries_hh.values():
-    print(gen_viz.plot(rerun=True))
-
-###############################################################################
-from waste_flow.reports.comparison import report
-print(report())
