@@ -2,3 +2,4 @@ include README.md
 include LICENSE.txt
 recursive-include waste_flow/ *.csv
 recursive-include waste_flow/ *.mustache
+recursive-include waste_flow/ *.png
