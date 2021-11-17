@@ -13,6 +13,7 @@ import socket
 
 # Internal modules #
 import waste_flow
+from waste_flow.country import all_codes
 
 # First party modules #
 from pymarktex.templates import Template
@@ -31,3 +32,9 @@ class ReportTemplate(Template):
     def git(self):
         if not waste_flow.git_repo: return False
         return {'git_hash'  : waste_flow.git_repo.hash}
+
+    def country_list(self):
+        aggregates = ['EU27_2020', 'EU28']
+        countries  = [c for c in all_codes if c not in aggregates]
+        msg = "%s as well as %s which represent aggregates."
+        return msg % (', '.join(countries), ', '.join(aggregates))

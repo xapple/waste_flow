@@ -89,7 +89,7 @@ class Country:
 # Get all possible countries #
 gen_codes = set(gen_orig.df.country.unique())
 trt_codes = set(trt_orig.df.country.unique())
-all_codes = gen_codes & trt_codes
+all_codes = list(gen_codes & trt_codes)
 
 # Create every country object #
 all_countries = [Country(code) for code in all_codes]
