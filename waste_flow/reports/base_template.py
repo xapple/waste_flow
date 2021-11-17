@@ -9,7 +9,7 @@ Unit D1 Bioeconomy.
 """
 
 # Built-in modules #
-import socket
+import os, socket
 
 # Internal modules #
 import waste_flow
@@ -27,7 +27,11 @@ class ReportTemplate(Template):
     def project_url(self):       return waste_flow.project_url
     def project_version(self):   return waste_flow.__version__
     def now(self):               return pretty_now()
-    def hostname(self):          return socket.gethostname()
+
+    def hostname(self):
+        host = os.environ.get('WASTE_FLOW_HOSTNAME')
+        if host is not None: return host
+        return socket.gethostname()
 
     def git(self):
         if not waste_flow.git_repo: return False
