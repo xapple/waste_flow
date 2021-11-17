@@ -33,4 +33,4 @@ jobs:
 
       - name: Run the pytest suite
         shell: bash -l {0}
-        run: pytest
+        run: python -m pytest --pyargs waste_flow

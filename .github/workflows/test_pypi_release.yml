@@ -2,7 +2,7 @@ name: Test the PyPI release
 
 # This workflow will install the latest PyPI release of the package (not the
 # master branch of the repository) and will run pytest.
-# It will search both in the real PyPI index as well as the test PyPI.
+# It will search both in the real PyPI index and the test PyPI.
 
 on:
   workflow_dispatch:
