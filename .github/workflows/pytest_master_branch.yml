@@ -8,9 +8,9 @@ name: Pytest master branch
 on:
   workflow_dispatch:
   push:
-    branches: [ disabled ] # Change back to 'master' to activate this workflow
+    branches: [ master ]
   pull_request:
-    branches: [ disabled ] # Change back to 'master' to activate this workflow
+    branches: [ master ]
 
 jobs:
   build:
