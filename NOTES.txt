@@ -1,10 +1,12 @@
-http://github.com/xapple/waste_flow/
+Repository:
+
+* http://github.com/xapple/waste_flow/
 
 --------------------
 
 Find the bulk download
 
-Go here https://ec.europa.eu/eurostat/data/database
+Go here: https://ec.europa.eu/eurostat/data/database
 
 Follow Database by themes -> Environment -> Waste -> Waste treatment
 
@@ -14,37 +16,38 @@ Follow Database by themes -> Environment -> Waste -> Waste treatment
 
 --------------------
 
-4 dimension table
+4 dimensional table
 
-Time
-Country
-NACE activity
-Waste category
+* Time
+* Country
+* NACE activity
+* Waste category
 
 --------------------
 
-The C and C-10 are subgroups, don't sum twice.
+The C and C-10 are subgroups, don't sum them twice.
 
 ------------------
 
-The word household appears in both categories, be careful.
+The word "household" appears in both categories, be careful.
 
 ------------
 
-Coefficients for the part of paper in household comes from different studies. Ref missing.
-Each product has a coefficient except things like animal feces.
+Coefficients for the part of paper in household comes from different studies. Reference missing.
+
+Each product has a coefficient except certain things like animal feces.
 
 -----------------
 
-Then there are extra coefficients that affect rubber (e.g. 40%) to separate in the bio part and non-bio. Ref missing.
+Then there are extra coefficients that affect rubber (e.g. 40%) to separate in the "bio" part and "non-bio". Reference missing.
 
 -------------------
 
-Multiply for the dry content. These coefficients also come from studies. Ref missing.
+Multiply for the dry content. These coefficients also come from studies. Reference missing.
 
 -----------------------
 
-We also need the waste destinations from eurostat to perform a matrix multiplication with them.
+We also need the waste destinations from Eurostat to perform a matrix multiplication with them.
 
 -----------------------
 
@@ -60,7 +63,7 @@ https://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=env_wastrt&lang=en
 
 The "0 e" values problem can be explained with the legend at the bottom of the GUI version.
 
-The second "household" should be called "municipal waste" to avoid confusion
+The second "household" should be called "municipal waste" to avoid confusion.
 
 -----------------------
 
@@ -78,11 +81,11 @@ Questions first batch:
 
 TODO:
 
-* Check missing values in the graphs
+* Check missing values in the graphs.
 
-* Check matrix index used for multiplication (not just position in the matrix)
+* Check matrix index used for multiplication (not just position in the matrix).
 
-* Check how NaNs are conserved multiplication during matrix multiplication
+* Check how NaNs are conserved through multiplication during matrix multiplication.
 
 -----------------------
 
@@ -90,7 +93,7 @@ More questions:
 
 * Wet fraction applies to original waste categories or new ones?
 
-* References for all numbers in wet fraction and waste category spreading
+* References for all numbers in wet fraction and waste category spreading.
 
 * Disposal categories refer to original waste categories, so how does waste destinations mix with the new categories created?
 
@@ -100,9 +103,8 @@ More questions:
 
 New graphs:
 
-X axis: time
-Y axis: mass
-Values: dry_mass as seen in summary output.
-
-Separated by country.
-Separated between Household and Industrial
+* X axis: time
+* Y axis: mass
+* Values: dry_mass as seen in summary output.
+* Separated by country.
+* Separated between "Household" and "Industrial".
