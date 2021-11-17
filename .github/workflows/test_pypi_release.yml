@@ -1,0 +1,34 @@
+name: Test the PyPI release
+
+# This workflow will install the latest PyPI release of the package (not the
+# master branch of the repository) and will run pytest.
+# It will search both in the real PyPI index as well as the test PyPI.
+
+on:
+  push:
+    branches: [ disabled ] # Change back to 'master' to activate this workflow
+  pull_request:
+    branches: [ disabled ] # Change back to 'master' to activate this workflow
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ['3.6']
+        os: [windows-latest]
+
+    steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install the package from PyPI
+        run: python -m pip install --extra-index-url https://test.pypi.org/simple/ waste_flow
+
+      - name: Run the pytest suite
+        run: pytest

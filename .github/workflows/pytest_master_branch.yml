@@ -1,0 +1,33 @@
+name: Pytest master branch
+
+# This workflow will run `pytest` on the latest commit of the master
+# branch, after having installed the package with pip.
+# For more information see:
+# https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+on:
+  push:
+    branches: [ disabled ] # Change back to 'master' to activate this workflow
+  pull_request:
+    branches: [ disabled ] # Change back to 'master' to activate this workflow
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install the package from the git repo
+        run: pip install ./
+
+      - name: Test with pytest
+        run: pytest

@@ -1,0 +1,35 @@
+name: Test conda release
+
+# This workflow will install the latest conda release of the package (not the
+# master branch of the repository) and will run pytest.
+
+
+on:
+  push:
+    branches: [ disabled ] # Change back to 'master' to activate this workflow
+  pull_request:
+    branches: [ disabled ] # Change back to 'master' to activate this workflow
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ['3.6']
+        os: [windows-latest]
+
+    steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          auto-activate-base: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install the package from anaconda
+        shell: bash -l {0}
+        run: conda install -y -c conda-forge -c xapple waste_flow
+
+      - name: Run the pytest suite
+        shell: bash -l {0}
+        run: pytest
