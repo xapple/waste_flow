@@ -13,7 +13,7 @@ Unit D1 Bioeconomy.
 # Internal modules #
 from waste_flow                    import cache_dir
 from waste_flow.common             import nace_names
-from waste_flow.country            import countries
+from waste_flow.country            import countries, all_codes
 from waste_flow.viz.gen_by_country import legend
 from waste_flow.generation         import waste_gen
 
@@ -58,12 +58,10 @@ class GenBySectorViz:
 
     @property_cached
     def all_graphs(self):
-        # Get all countries #
-        country_names = self.df.index.levels[0]
         # Sort sectors into batches of a given size #
         size    = GenSectorPlot.n_cols
-        count   = len(country_names)
-        batches = [country_names[i:i + size] for i in range(0, count, size)]
+        count   = len(all_codes)
+        batches = [all_codes[i:i + size] for i in range(0, count, size)]
         # One graph per sector #
         result = [GenSectorPlot(self, batch) for batch in batches]
         # Return #
