@@ -21,7 +21,7 @@ setup(
     author           = 'Lucas Sinclair',
     author_email     = 'lucas.sinclair@me.com',
     packages         = find_namespace_packages(),
-    install_requires = ['autopaths>=1.5.9', 'plumbing>=2.11.1',
+    install_requires = ['autopaths>=1.4.12', 'plumbing>=2.11.1',
                         'pymarktex>=1.5.7', 'pandas', 'numpy',
                         'pytest', 'requests', 'matplotlib'],
     python_requires  = ">=3.6",
