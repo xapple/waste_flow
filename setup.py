@@ -13,7 +13,7 @@ with open(readme_path, encoding='utf-8') as handle: readme = handle.read()
 # Call setup #
 setup(
     name             = 'waste_flow',
-    version          = '1.3.1',
+    version          = '1.3.2',
     description      = 'A package for retrieving data concerning waste '
                        'management on the European continent.',
     license          = 'MIT',

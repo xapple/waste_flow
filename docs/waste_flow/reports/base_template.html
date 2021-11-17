@@ -40,10 +40,11 @@ Unit D1 Bioeconomy.
 &#34;&#34;&#34;
 
 # Built-in modules #
-import socket
+import os, socket
 
 # Internal modules #
 import waste_flow
+from waste_flow.country import all_codes
 
 # First party modules #
 from pymarktex.templates import Template
@@ -57,11 +58,21 @@ class ReportTemplate(Template):
     def project_url(self):       return waste_flow.project_url
     def project_version(self):   return waste_flow.__version__
     def now(self):               return pretty_now()
-    def hostname(self):          return socket.gethostname()
+
+    def hostname(self):
+        host = os.environ.get(&#39;WASTE_FLOW_HOSTNAME&#39;)
+        if host is not None: return host
+        return socket.gethostname()
 
     def git(self):
         if not waste_flow.git_repo: return False
-        return {&#39;git_hash&#39;  : waste_flow.git_repo.hash}</code></pre>
+        return {&#39;git_hash&#39;  : waste_flow.git_repo.hash}
+
+    def country_list(self):
+        aggregates = [&#39;EU27_2020&#39;, &#39;EU28&#39;]
+        countries  = [c for c in all_codes if c not in aggregates]
+        msg = &#34;%s as well as %s which represent aggregates.&#34;
+        return msg % (&#39;, &#39;.join(countries), &#39;, &#39;.join(aggregates))</code></pre>
 </details>
 </section>
 <section>
@@ -90,11 +101,21 @@ class ReportTemplate(Template):
     def project_url(self):       return waste_flow.project_url
     def project_version(self):   return waste_flow.__version__
     def now(self):               return pretty_now()
-    def hostname(self):          return socket.gethostname()
+
+    def hostname(self):
+        host = os.environ.get(&#39;WASTE_FLOW_HOSTNAME&#39;)
+        if host is not None: return host
+        return socket.gethostname()
 
     def git(self):
         if not waste_flow.git_repo: return False
-        return {&#39;git_hash&#39;  : waste_flow.git_repo.hash}</code></pre>
+        return {&#39;git_hash&#39;  : waste_flow.git_repo.hash}
+
+    def country_list(self):
+        aggregates = [&#39;EU27_2020&#39;, &#39;EU28&#39;]
+        countries  = [c for c in all_codes if c not in aggregates]
+        msg = &#34;%s as well as %s which represent aggregates.&#34;
+        return msg % (&#39;, &#39;.join(countries), &#39;, &#39;.join(aggregates))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -106,6 +127,22 @@ class ReportTemplate(Template):
 </ul>
 <h3>Methods</h3>
 <dl>
+<dt id="waste_flow.reports.base_template.ReportTemplate.country_list"><code class="name flex">
+<span>def <span class="ident">country_list</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def country_list(self):
+    aggregates = [&#39;EU27_2020&#39;, &#39;EU28&#39;]
+    countries  = [c for c in all_codes if c not in aggregates]
+    msg = &#34;%s as well as %s which represent aggregates.&#34;
+    return msg % (&#39;, &#39;.join(countries), &#39;, &#39;.join(aggregates))</code></pre>
+</details>
+</dd>
 <dt id="waste_flow.reports.base_template.ReportTemplate.git"><code class="name flex">
 <span>def <span class="ident">git</span></span>(<span>self)</span>
 </code></dt>
@@ -129,7 +166,10 @@ class ReportTemplate(Template):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def hostname(self):          return socket.gethostname()</code></pre>
+<pre><code class="python">def hostname(self):
+    host = os.environ.get(&#39;WASTE_FLOW_HOSTNAME&#39;)
+    if host is not None: return host
+    return socket.gethostname()</code></pre>
 </details>
 </dd>
 <dt id="waste_flow.reports.base_template.ReportTemplate.now"><code class="name flex">
@@ -201,6 +241,7 @@ class ReportTemplate(Template):
 <li>
 <h4><code><a title="waste_flow.reports.base_template.ReportTemplate" href="#waste_flow.reports.base_template.ReportTemplate">ReportTemplate</a></code></h4>
 <ul class="two-column">
+<li><code><a title="waste_flow.reports.base_template.ReportTemplate.country_list" href="#waste_flow.reports.base_template.ReportTemplate.country_list">country_list</a></code></li>
 <li><code><a title="waste_flow.reports.base_template.ReportTemplate.git" href="#waste_flow.reports.base_template.ReportTemplate.git">git</a></code></li>
 <li><code><a title="waste_flow.reports.base_template.ReportTemplate.hostname" href="#waste_flow.reports.base_template.ReportTemplate.hostname">hostname</a></code></li>
 <li><code><a title="waste_flow.reports.base_template.ReportTemplate.now" href="#waste_flow.reports.base_template.ReportTemplate.now">now</a></code></li>
