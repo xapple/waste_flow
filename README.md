@@ -1,7 +1,7 @@
 [![PyPI version](https://badge.fury.io/py/waste_flow.svg)](https://badge.fury.io/py/waste_flow)
 ![Pytest passing](https://github.com/xapple/waste_flow/actions/workflows/pytest_master_branch.yml/badge.svg)
 
-# `waste_flow` version 1.3.0
+# `waste_flow` version 1.3.1
 
 `waste_flow` is a python package for retrieving and analyzing data concerning the waste management of European countries.
 
