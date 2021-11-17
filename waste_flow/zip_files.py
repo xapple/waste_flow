@@ -57,12 +57,6 @@ class ZipFile:
     """
     Download a zipped CSV file containing all countries and all categories
     from the EUROSTAT webserver.
-
-    The original strategy to convert colons to NaN was the following:
-
-        # If there is a colon in a cell, it's not a number #
-        def colon_to_nan(cell): return numpy.NaN if ':' in cell else cell
-        df = df.applymap(colon_to_nan)
     """
 
     base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/" \
@@ -96,6 +90,12 @@ class ZipFile:
         """
         Loads the big CSV that's inside the ZIP into memory.
         We don't specify na_values = [':', ': '] here because it's done later.
+
+        The original strategy to convert colons to NaN was the following:
+
+            # If there is a colon in a cell, it's not a number #
+            def colon_to_nan(cell): return numpy.NaN if ':' in cell else cell
+            df = df.applymap(colon_to_nan)
         """
         # Check the cache #
         if not self.cache_is_valid:
@@ -116,8 +116,10 @@ class ZipFile:
         df = df.rename(columns={'geo\\time': 'country'})
         # Also many column names have trailing whitespace #
         df.columns = df.columns.str.strip().str.replace(' ','_')
+        # Determine the years available in the dataset #
+        years = [int(col) for col in df.columns if col.isnumeric()]
         # Some cells have a number and a character or just a character #
-        for col in map(str, (2016, 2014, 2012, 2010, 2008, 2006, 2004)):
+        for col in map(str, years):
             df[col] = df[col].apply(pandas.to_numeric, errors = 'coerce')
         # Return #
         return df
