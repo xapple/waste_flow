@@ -9,7 +9,7 @@ Unit D1 Bioeconomy.
 """
 
 # Special variables #
-__version__ = '1.2.0'
+__version__ = '1.3.0'
 
 # Built-in modules #
 import os, sys
@@ -47,7 +47,8 @@ else:
     import warnings
     message = ("\n\n The cache location for waste_flow's data is not defined in"
                " the '%s' environment variable.\n In this case it will default"
-               " to:\n\n '%s',\n which might lead to re-caching after every reboot.\n")
+               " to:\n\n '%s',\n which might lead to re-caching after every"
+               " reboot.\n")
     message = message % (env_var_name, cache_dir)
     warnings.warn(message)
 
