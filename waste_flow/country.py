@@ -21,6 +21,7 @@ import importlib
 # Internal modules #
 from waste_flow.common    import country_codes
 from waste_flow.zip_files import waste_gen as gen_orig
+from waste_flow.zip_files import waste_trt as trt_orig
 
 # First party modules #
 from plumbing.cache import property_cached
@@ -71,8 +72,8 @@ class Country:
         module_path = '.'.join(location.split('.')[:-1])
         object_name = location.split('.')[-1]
         # Import #
-        mod = importlib.import_module(module_path)
-        obj = getattr(mod, object_name)
+        mdl = importlib.import_module(module_path)
+        obj = getattr(mdl, object_name)
         # Load #
         df = getattr(obj, df_name)
         # Select rows for current country #
@@ -86,7 +87,9 @@ class Country:
 
 ###############################################################################
 # Get all possible countries #
-all_codes = list(gen_orig.df.country.unique())
+gen_codes = set(gen_orig.df.country.unique())
+trt_codes = set(trt_orig.df.country.unique())
+all_codes = gen_codes & trt_codes
 
 # Create every country object #
 all_countries = [Country(code) for code in all_codes]
