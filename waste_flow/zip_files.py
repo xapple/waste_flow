@@ -84,13 +84,12 @@ class ZipFile:
 
     # ---------------------------- Properties --------------------------------#
     @property
-    def cache_is_valid(self, check_md5=True):
+    def cache_is_valid(self):
         """Checks if the file needed has been correctly downloaded."""
-        # Simple case #
+        # Check existence #
         if not self.zip_path.exists: return False
-        if not check_md5:            return True
-        # Check the MD5 #
-        return self.zip_path.md5 == self.md5
+        # Return #
+        return True
 
     @property
     def raw_csv(self):
@@ -102,7 +101,7 @@ class ZipFile:
         if not self.cache_is_valid:
             self.refresh_cache()
             if not self.cache_is_valid:
-                raise Exception("Error refreshing cache")
+                raise Exception("Error refreshing cache.")
         # Load the CSV #
         with gzip.open(self.zip_path) as csv_handle:
             text_mode = io.TextIOWrapper(csv_handle, encoding=self.encoding)
@@ -157,7 +156,6 @@ class WasteGen(ZipFile):
     zip_name   = "env_wasgen.tsv.gz"
     csv_name   = "env_wasgen.tsv"
     encoding   = "ISO-8859-1"
-    md5        = "df2ab56bb48bb2bf0e3266d08fa4d408"
 
 #-----------------------------------------------------------------------------#
 class WasteTrt(ZipFile):
@@ -169,7 +167,6 @@ class WasteTrt(ZipFile):
     zip_name   = "env_wastrt.tsv.gz"
     csv_name   = "env_wastrt.tsv"
     encoding   = "ISO-8859-1"
-    md5        = "bfbfc036921b22698e52eab168f3f891"
 
 ###############################################################################
 # Create singletons #
