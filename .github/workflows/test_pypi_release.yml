@@ -5,7 +5,7 @@ name: Test the PyPI release
 # It will search both in the real PyPI index as well as the test PyPI.
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
   push:
     branches: [ disabled ] # Change back to 'master' to activate this workflow
   pull_request:

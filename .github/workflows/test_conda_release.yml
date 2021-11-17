@@ -5,7 +5,7 @@ name: Test conda release
 
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
   push:
     branches: [ disabled ] # Change back to 'master' to activate this workflow
   pull_request:
