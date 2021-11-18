@@ -90,10 +90,16 @@ class WasteTreatment:
             without skip_na=True and we then fill the remaining ones.
         """
         # Load dataframe #
-        df = self.long_format
+        df = self.long_format.copy()
         # Group #
         groups = df.groupby(['country', 'year', 'waste'])
         # Add the frac column #
+        # -------------- #
+        # FutureWarning: Dropping invalid columns in DataFrameGroupBy.transform
+        # is deprecated. In a future version, a TypeError will be raised.
+        # Before calling .transform, select only columns which should be valid
+        # for the transforming function.
+        # -------------- #
         df['frac'] = groups.transform(lambda x: (x / x.sum()))
         # Fill remaining NaNs #
         df = df.fillna(0.0)
