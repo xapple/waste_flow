@@ -108,3 +108,9 @@ New graphs:
 * Values: dry_mass as seen in summary output.
 * Separated by country.
 * Separated between "Household" and "Industrial".
+
+------------------------
+
+Ideas for improvement:
+
+* Add the auto generated PDF report to the README.md as a downloadable file
