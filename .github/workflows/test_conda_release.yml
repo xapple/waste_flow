@@ -1,4 +1,4 @@
-name: Test conda release
+name: Test the conda release
 
 # This workflow will install the latest conda release of the package (not the
 # master branch of the repository) and will run pytest.
@@ -16,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ['3.9']
+        python-version: ['3.8']
         os: [macos-latest]
 
     steps:
