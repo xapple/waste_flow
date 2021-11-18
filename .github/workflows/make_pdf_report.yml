@@ -27,5 +27,8 @@ jobs:
       - name: Install the package from the git repo
         run: pip install ./
 
+      - name: Install XeLaTeX
+        run: sudo apt-get install -y texlive-xetex
+
       - name: Make the PDF report
         run: python scripts/outputs/make_pdf_report.py
