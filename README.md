@@ -11,7 +11,7 @@
 
 ## Installing
 
-Since `waste_flow` is written in python it is compatible with all operating systems: Linux, macOS and Windows. The only prerequisite is python version 3.6 or above which is often installed by default. Simply choose one of the two following methods to install, depending on which package manager you prefer to use.
+Since `waste_flow` is written in python it is compatible with all operating systems: Linux, macOS and Windows. The only prerequisite is python version 3.9 or above which is often installed by default. Simply choose one of the two following methods to install, depending on which package manager you prefer to use.
 
 ### Installing via `conda`
 
@@ -26,7 +26,7 @@ Since `waste_flow` is written in python it is compatible with all operating syst
 * If you do not have `conda` on your system you can refer to [this section](docs/installing_tips.md#installing-python-with-conda).
 * If you do not have `pip3` on your system you can refer to [this section](docs/installing_tips.md#obtaining-pip3).
 * If you do not have `python3` on your system or have an outdated version, you can refer to [this other section](docs/installing_tips.md#obtaining-python3).
-* If none of the above has enabled you to install `waste_flow`, please open an issue on [the bug tracker](https://github.com/xapple/waste_flow/issues) and we will get back to you shortly.
+* If none of the above has enabled you to install `waste_flow`, please open an issue on [the bug tracker](https://github.com/xapple/waste_flow/issues), and we will get back to you shortly.
 
 ## Usage
 
