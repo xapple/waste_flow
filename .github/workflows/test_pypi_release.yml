@@ -29,7 +29,7 @@ jobs:
         run: python -m pip install --upgrade pip
 
       - name: Install the package from PyPI
-        run: python -m pip install --extra-index-url https://test.pypi.org/simple/ waste_flow
+        run: python -m pip install waste_flow
 
       - name: Run the pytest suite
         run: python -m pytest --pyargs waste_flow
