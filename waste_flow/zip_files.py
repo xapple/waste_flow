@@ -120,6 +120,8 @@ class ZipFile:
         years = [int(col) for col in df.columns if col.isnumeric()]
         # Some cells have a number and a character or just a character #
         for col in map(str, years):
+            # First extract potential numeric part
+            df[col] = df[col].str.extract('(\d+)', expand=False)
             df[col] = df[col].apply(pandas.to_numeric, errors = 'coerce')
         # Return #
         return df
