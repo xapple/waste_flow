@@ -59,8 +59,7 @@ class ZipFile:
     from the EUROSTAT webserver.
     """
 
-    base_url   = "https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/" \
-                 "BulkDownloadListing"
+    base_url   = "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/"
 
     def __init__(self, zip_cache_dir):
         # Record where the cache will be located on disk #
@@ -113,7 +112,7 @@ class ZipFile:
         # Load #
         df = self.raw_csv
         # Strange name due to wrong column parsing and tabs #
-        df = df.rename(columns={'geo\\time': 'country'})
+        df = df.rename(columns={'geo\\TIME_PERIOD': 'country'})
         # Also many column names have trailing whitespace #
         df.columns = df.columns.str.strip().str.replace(' ','_')
         # Determine the years available in the dataset #
@@ -137,6 +136,8 @@ class ZipFile:
         # Filter for those that we want - HAZARD #
         df = df.query("hazard == 'HAZ_NHAZ'")
         df = df.drop(columns=['hazard'])
+        # Remove column frequency
+        df = df.drop(columns=['freq'])
         # Albania, Kosovo and Turkey are missing entries, drop them #
         df = df.query("country != 'AL'")
         df = df.query("country != 'XK'")
@@ -156,9 +157,9 @@ class WasteGen(ZipFile):
     short_name = "env_wasgen"
     long_name  = "Generation of waste by waste category, hazardousness and" \
                  " NACE Rev. 2 activity."
-    url_param  = "?file=data/env_wasgen.tsv.gz"
-    zip_name   = "env_wasgen.tsv.gz"
-    csv_name   = "env_wasgen.tsv"
+    url_param  = "env_wasgen?format=TSV&compressed=true"
+    zip_name   = "estat_env_wasgen.tsv.gz"
+    csv_name   = "estat_env_wasgen.tsv"
     encoding   = "ISO-8859-1"
 
 #-----------------------------------------------------------------------------#
@@ -167,9 +168,9 @@ class WasteTrt(ZipFile):
     short_name = "env_wastrt"
     long_name  = "Treatment of waste by waste category, hazardousness and" \
                  " waste management operations."
-    url_param  = "?file=data/env_wastrt.tsv.gz"
-    zip_name   = "env_wastrt.tsv.gz"
-    csv_name   = "env_wastrt.tsv"
+    url_param  = "env_wastrt?format=TSV&compressed=true"
+    zip_name   = "estat_env_wastrt.tsv.gz"
+    csv_name   = "estat_env_wastrt.tsv"
     encoding   = "ISO-8859-1"
 
 ###############################################################################
